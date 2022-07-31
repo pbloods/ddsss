@@ -1,0 +1,70 @@
+.tag.link
+  margin-top: 1em
+  margin-bottom: 1em
+
+.link-card
+  margin-right: 1em
+  background: var(--global-bg)
+  border: 1px solid var(--light-grey)
+  display: inline-flex
+  align-items: center
+  box-shadow: 0 4px 2px 0 #463f3f96
+  cursor: pointer
+  text-align: center
+  width: 400px
+  max-width: 100%
+  @media screen and (max-width: 425px)
+    max-width: 100%
+    width: 100%
+  color: var(--font-color) !important
+  border-radius: 12px
+  &:hover
+    box-shadow: 0 8px 16px 0 #463f3f96
+    text-decoration: none !important
+
+
+.link-card
+  div.left,div.right
+    pointer-events: none
+  div.left
+    width: 54px
+    height: 54px
+    margin: 12px
+    overflow: hidden
+    flex-shrink: 0
+    position: relative
+    i
+      font-size: 32px
+      line-height: 48px
+      margin-left: 4px
+    img
+      display: block
+      position: absolute
+      border-radius: 12px / 4
+      top: 50%
+      left: 50%
+      transform: translate(-50%, -50%)
+  div.right
+    overflow: hidden
+    margin-right: 16px
+  p
+    margin: 0
+    txt-ellipsis()
+    margin: 0 0 0px !important
+  p.text
+    font-weight: bold
+    text-align: left
+  p.url
+    flex-shrink: 0
+    font-size: 13px
+
+.link-group
+  display: grid
+  grid-template-columns: 1fr 1fr
+  @media screen and (max-width: 375px)
+    grid-template-columns: 1fr
+  grid-gap: $gap
+  .tag.link
+    margin: 0
+  .link-card
+    width: 100%

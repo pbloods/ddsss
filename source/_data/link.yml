@@ -1,0 +1,35 @@
+- class_name: <p style="color:#49b175">大佬</p>
+  class_desc: 特别厉害的大佬
+  link_list:
+    - name: 闪烁之狐
+      link: https://blinkfox.github.io/
+      avatar: https://blinkfox.github.io/medias/avatar.jpg
+      descr: 软件工程师
+    - name: 张洪Heo
+      link: https://blog.zhheo.com/
+      avatar: https://npm.elemecdn.com/guli-heo/img/favicon.png
+      descr: 97年设计师，乐于技术分享
+    - name: 虹墨空间站
+      link: https://www.imaegoo.com/
+      avatar: https://www.imaegoo.com/favicon.ico
+      descr: Twikoo评论作者博客
+    - name: 保罗的小窝
+      link: https://paul.ren/
+      avatar: https://paugram.com/usr/themes/single/img/icon.png
+      descr: Single主题作者博客
+
+- class_name: <p style="color:#49b175">小伙伴</p>
+  class_desc: 都是值得学习的对象
+  link_list:
+    - name: 小弋の生活馆
+      link: https://lovelijunyi.gitee.io/
+      avatar: https://lovelijunyi.gitee.io/img/favicon.png
+      descr: 因为他的博客才入坑butterfly的
+    - name: 王雨晴
+      link: https://www.toubiec.cn/
+      avatar: https://sxqcdn.biacgn.com/usr/themes/Joe/favicon.ico
+      descr: 一个技术很厉害的公务员小姐姐
+    - name: Ordis
+      link: https://imbhj.com
+      avatar: https://gcore.jsdelivr.net/gh/laugh0608/CDN3/img/202112111811407.gif
+      descr: 船到桥头自然直，柳暗花明又一村
