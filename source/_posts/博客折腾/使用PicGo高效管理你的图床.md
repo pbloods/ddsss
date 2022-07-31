@@ -1,5 +1,5 @@
 ---
-title: 使用 PicGo 高效管理你的图床
+title: 使用PicGo高效管理你的图床
 categories:
   - 博客折腾
 tags:

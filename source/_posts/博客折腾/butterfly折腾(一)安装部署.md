@@ -292,7 +292,7 @@ git push
 ```
 
 ## Gitee pages
-使用`github actions`自动部署`gitee pages`服务， [详见](https://github.com/yanglbme/gitee-pages-action)
+[Gitee](https://gitee.com/enterprises?invite_code=Z2l0ZWUtOTMyMjk0Ng%3D%3D) 是国内的开源仓库，延迟比Github低了几倍， [详见](https://github.com/yanglbme/gitee-pages-action)
 
 - 优点：国内服务，延迟低
 - 缺点：不支持自定义域名、需实名认证、内容需要审核
@@ -329,10 +329,6 @@ jobs:
           # 要部署的分支，默认是 master，若是其他分支，则需要指定（指定的分支必须存在）
           branch: master
 ```
-
-**注意：**
-- 一定要仔细检查 github 和 gitee 上的公匙是否一致
-- 若没有开启过 gitee 的 page 服务，请先手动启动一次，否则`yanglbme/gitee-pages-action`会报错
 
 
 ## vercel
