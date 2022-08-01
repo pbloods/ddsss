@@ -106,7 +106,6 @@ pattern = "**/*.rs"
 **搭建教程**
 
 1. 创建一个 Bash 语言项目
-![20220522170711](https://pblood.oss-cn-hongkong.aliyuncs.com/img/note/20220522170711.png)
 
 2. 下载最新版本[alist-linux-amd64.tar.gz](https://github.com/Xhofe/alist/releases/latest/download/alist-linux-musl-amd64.tar.gz)
 ```replitshell

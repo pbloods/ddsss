@@ -25,9 +25,6 @@ div#nav-right {
     text-align: center;
 }
 
-#article-container.post-content li::marker {
-    font-size: 1.35em;
-}
 
 /*首页文章双栏布局*/
 @media screen and (min-width: 1300px) {
@@ -395,4 +392,17 @@ div#nav-right {
 #aside-content .card-widget, #recent-posts .recent-post-item, .append-item, .cardHover, .error404 #error-wrap .error-content, .layout>.recent-posts .pagination>:not(.space), .layout>div:first-child:not(.recent-posts) {
     border: 1.5px solid var(--btn-bg);
     transition: .3s;
+}
+
+#article-container.post-content h1:before,
+h2:before,
+h3:before,
+h4:before,
+h5:before,
+h6:before {
+  -webkit-animation: avatar_turn_around 1s linear infinite;
+  -moz-animation: avatar_turn_around 1s linear infinite;
+  -o-animation: avatar_turn_around 1s linear infinite;
+  -ms-animation: avatar_turn_around 1s linear infinite;
+  animation: avatar_turn_around 1s linear infinite;
 }

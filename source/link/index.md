@@ -9,6 +9,6 @@ top_img: false
 ```yml
 - name: Pbloodの小岛
   link: https://pblood.com/
-  avatar: https://pblood.oss-cn-hongkong.aliyuncs.com/img/site/logo.png
-  descr: The end is the beginning.
+  avatar: https://pblood.oss-cn-hongkong.aliyuncs.com/blog/site/logo.png
+  descr: 结束即是开始
 ```
