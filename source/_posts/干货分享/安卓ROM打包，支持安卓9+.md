@@ -6,6 +6,7 @@ tag:
   - android
 abbrlink: 693417627
 date: 2021-06-15 00:00:00
+top_img: false
 cover: https://pblood.oss-cn-hongkong.aliyuncs.com/blog/cover/linux.png
 ---
 

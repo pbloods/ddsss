@@ -6,6 +6,7 @@ tag:
   - openwrt
 abbrlink: 1697202410
 date: 2022-04-01 00:00:00
+top_img: false
 cover: https://pblood.oss-cn-hongkong.aliyuncs.com/blog/cover/openwrt.png
 ---
 

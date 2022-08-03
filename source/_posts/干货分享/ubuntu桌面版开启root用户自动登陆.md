@@ -7,6 +7,7 @@ tag:
   - ubuntu
 abbrlink: 87670707
 date: 2022-03-17 00:00:00
+top_img: false
 cover: https://pblood.oss-cn-hongkong.aliyuncs.com/blog/cover/linux.png
 ---
 
