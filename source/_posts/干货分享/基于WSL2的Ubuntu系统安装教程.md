@@ -1,5 +1,5 @@
 ---
-title: 安装基于WSL2的Ubuntu系统
+title: 基于WSL2的Ubuntu系统安装教程
 category:
   - 干货分享
 tag:
@@ -12,10 +12,11 @@ cover: https://pblood.oss-cn-hongkong.aliyuncs.com/blog/cover/linux.png
 
 >WSL 是一个集成在 Windows 上的虚拟化工具，现有两种版，WSL1 和 WSL2。WSL1 是 Windows32 套壳，与 windows 共用IP，能够双向访问；WSL2 是一个由 windows 优化的虚拟机，与 Windows 不共享 IP，但是 Windows 能通过 127.0.0.1 访问 WSL2 内的服务，WSL2则不能反向操作，WSL2 能够运行完整的 Linux 系统，和 VMware 相比优点是占用内存小，与 Windows 兼容性好。
 
-相关链接:
+## 参考
+
 - 适用于 Linux 的 Windows 子系统文档：<https://docs.microsoft.com/zh-cn/windows/wsl/>
 
-# 安装
+## 安装
 
 1. 安装 WSL2（使用管理员身份打开`Windows Terminal`）
 ```powershell
@@ -33,7 +34,7 @@ wsl --update
 ```powershell
 # 列出所有可安装的 linux 版本(ubuntu、debian、kali等)
 wsl --list --online
-# 这里选择安装 Ubuntu-22.04
+# 这里选择安装 Ubuntu-22.04（Win11才有）
 wsl --install -d Ubuntu-22.04 
 ```
 **常用 WSL 命令:**
@@ -57,9 +58,9 @@ ubuntu2004 config --default-user <uesname>
 
 第三方安装工具：[LxRunOffline 使用教程 - WSL 自定义安装、备份](https://p3terx.com/archives/manage-wsl-with-lxrunoffline.html)
 
-# 配置
+## 配置
 
-## 设置 root 用户密码
+### 设置 root 用户密码
 >ubuntu-22.04自带图形安装界面，但是乱码严重，有时候设置不了用户和密码，退出进入命令行手动设置
 ```shell
 # 默认 root 用户无密码，先设置root用户密码
@@ -68,12 +69,12 @@ passwd
 adduser <username>
 ```
 
-## 安装 gedit
+### 安装 gedit
 ```shell
 apt install -y gedit
 ```
 
-## 设置代理（以 Clash 为例）
+### 设置代理（以 Clash 为例）
 **临时代理（重启失效）**
 ```shell
 export https_proxy="http://127.0.0.1:7890"
@@ -105,7 +106,7 @@ export all_proxy="socks5://127.0.0.1:7891"
 env
 ```
 
-## 更换软件源
+### 更换软件源
 >其实不换也行，ubuntu 22.04 默认源也挺快的，这里记录一下
 
 备份原来的源
@@ -140,15 +141,15 @@ apt-get update && apt-get upgrade
 
 参考链接：<https://blog.csdn.net/wangyijieonline/article/details/105360138>
 
-## 网络配置
+### 网络配置
 
-### 开放防火墙
+#### 开放防火墙
 >默认情况下Windows的防火墙会阻止WSL2中应用对Windows的网络访问
 ```powershell
 New-NetFirewallRule -DisplayName "WSL" -Direction Inbound  -InterfaceAlias "vEthernet (WSL)"  -Action Allow
 ```
 
-### WSL2的远程访问
+#### WSL2的远程访问
 从Windows访问WSL2中的端口可以使用`localhost`、`127.0.0.1`，从`localhost`访问速度低于`127.0.0.1`，并且使用`localhost`时WSL的某些端口无法在Windows上访问，`127.0.0.1`没有这个问题；
 WSL2真实IP是类似于这样的：`172.30.239.234`，与本机IP：`192.168.1.x`并不能互访，其实就是一层NAT，微软通过一些技术手段把通过`127.0.0.1`的互访完全打通了，把`localhost`和`172.30.239.234`绑定在一起，但没有和`127.0.0.1`一样打通所有端口，而且都无法从其它主机访问WSL2中的服务，必须做端口转发才能实现WSL2的远程访问
 
@@ -177,17 +178,17 @@ netsh interface portproxy delete v4tov4 listenport=80 listenaddress=0.0.0.0
 nano /etc/resolv.conf
 ```
 
-### 修改 HOST
+#### 修改 HOST
 ```shell
 nano /etc/hosts
 ```
 >注意通过电脑127.0.0.1访问WSL内的服务发挥作用的是电脑的hosts文件
 
-### 修改解析服务配置文件
+#### 修改解析服务配置文件
 ```shell
 nano /etc/systemd/resolved.conf
 ```
-## 其他设置
+### 其他设置
 
 **设置中文语言**
 ```shell
