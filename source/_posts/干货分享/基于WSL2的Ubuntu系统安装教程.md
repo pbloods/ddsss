@@ -34,8 +34,8 @@ wsl --update
 ```powershell
 # 列出所有可安装的 linux 版本(ubuntu、debian、kali等)
 wsl --list --online
-# 这里选择安装 Ubuntu-22.04（Win11才有）
-wsl --install -d Ubuntu-22.04 
+# 这里选择安装 Ubuntu-20.04
+wsl --install -d Ubuntu-20.04 
 ```
 **常用 WSL 命令:**
 ```powershell
@@ -50,9 +50,9 @@ wsl --export <Distribution Name> <FileName>
 # 导入新发行版（镜像恢复）
 wsl --import <Distribution Name> <InstallLocation> <FileName>
 
-# 设置默认用户为 root（以 ubuntu-22.04为例）
+# 设置默认用户为 root（以 ubuntu-20.04为例）
 ubuntu2004 config --default-user root
-# 切换回设置的用户（以 ubuntu-22.04为例）
+# 切换回设置的用户（以 ubuntu-20.04为例）
 ubuntu2004 config --default-user <uesname>
 ```
 
