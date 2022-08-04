@@ -642,7 +642,7 @@ aside:
     button:
       enable: true
       icon: fas fa-book-open
-      text: Pbloodの阅览室
+      text: Pbloodの博客
       link: https://blog.pblood.com/
   card_announcement:
     enable: false
