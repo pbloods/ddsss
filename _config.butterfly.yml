@@ -498,7 +498,7 @@ tag_ui: # 留空或 index
 # Website Background (設置網站背景)
 # can set it to color or image (可設置圖片 或者 顔色)
 # The formal of image: url(http://xxxxxx.com/xxx.jpg)
-background: url(https://w.wallhaven.cc/full/z8/wallhaven-z83g9o.jpg)
+background: url(https://pblood.oss-cn-hongkong.aliyuncs.com/blog/site/wallhaven-z83g9o.webp)
 
 # Footer Background
 footer_bg: false
@@ -859,7 +859,7 @@ CDN:
   # The CDN provider of third party scripts (第三方 js 的 cdn 配置)
   # option: local/jsdelivr/unpkg/cdnjs/custom
   # when set it to local, you need to install hexo-butterfly-extjs
-  third_party_provider: jsdelivr
+  third_party_provider: unpkg
 
   # Add version number to CDN, true or false  
   version: false
