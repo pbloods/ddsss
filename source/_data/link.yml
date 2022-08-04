@@ -15,7 +15,7 @@
       descr: Twikoo评论作者博客
     - name: 保罗的小窝
       link: https://paul.ren/
-      avatar: https://paugram.com/usr/themes/single/img/icon.png
+      avatar: https://paul.ren/static/img/icon.png
       descr: Single主题作者博客
 
 - class_name: <p style="color:#49b175">小伙伴</p>
