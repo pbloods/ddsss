@@ -1,7 +1,7 @@
 ---
 title: 安卓ROM解包/打包，支持安卓9+
 category:
-  - linux
+  - 干货分享
 tag:
   - android
 abbrlink: 693417627

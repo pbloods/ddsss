@@ -406,3 +406,12 @@ h6:before {
   -ms-animation: avatar_turn_around 1s linear infinite;
   animation: avatar_turn_around 1s linear infinite;
 }
+
+#article-container .flink .flink-list > .flink-list-item {
+    width: calc(100% / 4 - 15px);
+    background: azure;
+}
+[data-theme="dark"]
+#article-container .flink .flink-list > .flink-list-item {
+    background: var(--global-bg);
+}
