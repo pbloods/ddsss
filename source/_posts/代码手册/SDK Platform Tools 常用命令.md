@@ -11,7 +11,7 @@ date: 2021-06-14 08:00:00
 
 推荐：
 - [官方文档](https://developer.android.com/studio/command-line/adb)
-- [闷骚程序员整理的 adb 使用手册](https://github.com/mzlogin/awesome-adb)
+- [闷骚程序员整理的 adb 使用手册](https://mazhuang.org/awesome-adb/)
 
 # ADB常用命令
 
@@ -24,6 +24,13 @@ adb connect [ip]                                   #连接主机
 adb -s [主机id] [shell命令]                         #只在某一主机执行命令
 adb kill-server                                    #关闭adb
 adb tcpip 5555                                     #先通过usb连接开启无线调试，若无线连接失败，可能是目标设备没有开启无线调试
+
+#设置代理
+adb shell settings put global http_proxy IP:端口
+#清除代理
+adb shell settings delete global global_http_proxy_host
+adb shell settings delete global global_http_proxy_port
+adb shell settings delete global http_proxy
 
 adb install xxx.apk                                #安装软件
 adb shell pm list packages                         #查看应用列表
