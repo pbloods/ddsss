@@ -3,7 +3,7 @@ bottom:
     id_name:
     name: 人生倒计时
     icon: fas fa-hourglass-half
-    order: 3
+    order: 1
     html: '<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
         <div class="content">

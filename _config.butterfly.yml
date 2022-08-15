@@ -661,7 +661,7 @@ aside:
     enable: true
     limit: 40 # if set 0 will show all
     color: false
-    sort_order: # Don't modify the setting unless you know how it works
+    sort_order: 2 # Don't modify the setting unless you know how it works
   card_archives:
     enable: false
     type: monthly # yearly or monthly

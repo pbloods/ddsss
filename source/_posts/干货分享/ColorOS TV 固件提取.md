@@ -10,7 +10,7 @@ abbrlink: 3868674743
 ---
 
 1. 开启ADB
-设置 > 系统 > 关于本机 > 设备型号，依次快速按方向键`上``上``右``右``确认`键
+设置 > 系统 > 关于本机 > 设备型号，依次快速按方向键`上` `上` `右` `右` `确认`键
 
 2. 安装Fiddler
 
@@ -129,5 +129,6 @@ Connection: close
 
 最后记得清除代理
 ```shell
-adb shell settings delete global http_proxy
+adb shell settings delete global global_http_proxy_host
+adb shell settings delete global global_http_proxy_port
 ```
