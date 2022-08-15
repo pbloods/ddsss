@@ -1246,6 +1246,188 @@ nav#nav
 }}
 ```
 
+### 人生倒计时侧边栏
+参考：https://blog.xybin.top/2022/countdown-to-life
+
+新建文件`source\_data\widget.yml`
+```yml
+bottom:
+  - class_name: aside aside-count
+    id_name:
+    name: 人生倒计时
+    icon: fas fa-hourglass-half
+    order:
+    html: '<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+        <div class="content">
+            <div class="item" id="dayProgress">
+                <div class="title">今日已经过去<span></span>小时</div>
+                <div class="progress">
+                    <div class="progress-bar">
+                        <div class="progress-inner progress-inner-1"></div>
+                    </div>
+                    <div class="progress-percentage"></div>
+                </div>
+            </div>
+            <div class="item" id="weekProgress">
+                <div class="title">这周已经过去<span></span>天</div>
+                <div class="progress">
+                    <div class="progress-bar">
+                        <div class="progress-inner progress-inner-2"></div>
+                    </div>
+                    <div class="progress-percentage"></div>
+                </div>
+            </div>
+            <div class="item" id="monthProgress">
+                <div class="title">本月已经过去<span></span>天</div>
+                <div class="progress">
+                    <div class="progress-bar">
+                        <div class="progress-inner progress-inner-3"></div>
+                    </div>
+                    <div class="progress-percentage"></div>
+                </div>
+            </div>
+            <div class="item" id="yearProgress">
+                <div class="title">今年已经过去<span></span>个月</div>
+                <div class="progress">
+                    <div class="progress-bar">
+                        <div class="progress-inner progress-inner-4"></div>
+                    </div>
+                    <div class="progress-percentage"></div>
+                </div>
+            </div>
+        </div>
+'
+```
+
+```CSS
+/*人生倒计时侧边栏*/
+.aside-count .content .item {
+    margin-bottom: 15px;
+    line-height: initial;
+}
+
+.aside-count .content .item:last-child {
+    margin-bottom: 0
+}
+ 
+.aside-count .content .item .title {
+    font-size: 12px;
+    color: var(--minor);
+    display: flex;
+    align-items: center
+}
+ 
+.aside-count .content .item .title span {
+    color: var(--theme);
+    font-weight: 500;
+    font-size: 14px;
+    margin: 0 5px
+}
+ 
+.aside-count .content .item .progress {
+    display: flex;
+    align-items: center
+}
+ 
+.aside-count .content .item .progress .progress-bar {
+    height: 10px;
+    border-radius: 5px;
+    overflow: hidden;
+    background: var(--classC);
+    width: 0;
+    min-width: 0;
+    flex: 1;
+    margin-right: 5px
+}
+@keyframes progress {
+    0% {
+        background-position: 0 0
+    }
+ 
+    100% {
+        background-position: 30px 0
+    }
+}
+.aside-count .content .item .progress .progress-bar .progress-inner {
+    width: 0;
+    height: 100%;
+    border-radius: 5px;
+    transition: width 0.35s;
+    -webkit-animation: progress 750ms linear infinite;
+    animation: progress 750ms linear infinite
+}
+ 
+.aside-count .content .item .progress .progress-bar .progress-inner-1 {
+    background: #bde6ff;
+    background-image: linear-gradient(135deg, #50bfff 25%, transparent 25%, transparent 50%, #50bfff 50%, #50bfff 75%, transparent 75%, transparent 100%);
+    background-size: 30px 30px
+}
+ 
+.aside-count .content .item .progress .progress-bar .progress-inner-2 {
+    background: #ffd980;
+    background-image: linear-gradient(135deg, #f7ba2a 25%, transparent 25%, transparent 50%, #f7ba2a 50%, #f7ba2a 75%, transparent 75%, transparent 100%);
+    background-size: 30px 30px
+}
+ 
+.aside-count .content .item .progress .progress-bar .progress-inner-3 {
+    background: #ffa9a9;
+    background-image: linear-gradient(135deg, #ff4949 25%, transparent 25%, transparent 50%, #ff4949 50%, #ff4949 75%, transparent 75%, transparent 100%);
+    background-size: 30px 30px
+}
+ 
+.aside-count .content .item .progress .progress-bar .progress-inner-4 {
+    background: #67c23a;
+    background-image: linear-gradient(135deg, #4f9e28 25%, transparent 25%, transparent 50%, #4f9e28 50%, #4f9e28 75%, transparent 75%, transparent 100%);
+    background-size: 30px 30px
+}
+```
+
+```js
+function init_life_time() {
+    function getAsideLifeTime() {
+        let nowDate = +new Date();
+        let todayStartDate = new Date(new Date().toLocaleDateString()).getTime();
+        let todayPassHours = (nowDate - todayStartDate) / 1000 / 60 / 60;
+        let todayPassHoursPercent = (todayPassHours / 24) * 100;
+        $('#dayProgress .title span').html(parseInt(todayPassHours));
+        $('#dayProgress .progress .progress-inner').css('width', parseInt(todayPassHoursPercent) + '%');
+        $('#dayProgress .progress .progress-percentage').html(parseInt(todayPassHoursPercent) + '%');
+        let weeks = {
+            0: 7,
+            1: 1,
+            2: 2,
+            3: 3,
+            4: 4,
+            5: 5,
+            6: 6
+        };
+        let weekDay = weeks[new Date().getDay()];
+        let weekDayPassPercent = (weekDay / 7) * 100;
+        $('#weekProgress .title span').html(weekDay);
+        $('#weekProgress .progress .progress-inner').css('width', parseInt(weekDayPassPercent) + '%');
+        $('#weekProgress .progress .progress-percentage').html(parseInt(weekDayPassPercent) + '%');
+        let year = new Date().getFullYear();
+        let date = new Date().getDate();
+        let month = new Date().getMonth() + 1;
+        let monthAll = new Date(year, month, 0).getDate();
+        let monthPassPercent = (date / monthAll) * 100;
+        $('#monthProgress .title span').html(date);
+        $('#monthProgress .progress .progress-inner').css('width', parseInt(monthPassPercent) + '%');
+        $('#monthProgress .progress .progress-percentage').html(parseInt(monthPassPercent) + '%');
+        let yearPass = (month / 12) * 100;
+        $('#yearProgress .title span').html(month);
+        $('#yearProgress .progress .progress-inner').css('width', parseInt(yearPass) + '%');
+        $('#yearProgress .progress .progress-percentage').html(parseInt(yearPass) + '%');
+    }
+    getAsideLifeTime();
+    setInterval(() => {
+        getAsideLifeTime();
+    }, 1000);
+}
+init_life_time()
+```
+
 ### 站点公祭日自动变灰
 
 ```js

@@ -120,6 +120,64 @@ PicGo插件里自定义域名填写`https://gcore.jsdelivr.net/gh/<用户名><�
 
 参考：[官方文档](https://docs.dogecloud.com/oss/)
 
+## npm图床
+
+登录
+```shell
+npm login
+```
+初始化(注意项目名不能与npm上其它项目重复，其它随意)
+```shell
+npm init
+```
+上传(不能和已有版本重复)
+```shell
+npm publish
+```
+废弃/删除 包
+```shell
+# 废弃（安装时提示用户该包已废弃，但仍可用）
+npm deprecate <package-name>[@<version>] <message>
+# 删除（删除的版本24小时后方可重发!只有发布72小时之内的包可以删除!）
+npm unpublish <package-name> --force
+npm unpublish <usename/babel> --force
+```
+
+**访问npm包内的图片**
+
+语法（以jsDelivr为例）：
+- 指定版本号：`https://gcore.jsdelivr.net/npm/包名@版本号/文件路径`
+- 不指定版本号（默认最新版本）：`https://gcore.jsdelivr.net/npm/包名/文件路径`
+示例：
+- https://gcore.jsdelivr.net/npm/pblood@1.0.1/img/favicon.png
+- https://gcore.jsdelivr.net/npm/pblood/img/favicon.png
+
+其它CDN加速：
+https://npm.elemecdn.com/pblood@1.0.1/img/favicon.png
+
+## Bilibili 图床
+参考：https://github.com/xlzy520/picgo-plugin-bilibili
+
+哔哩哔哩可用节点整理：
+```shell
+#金山 CDN 路线
+i0.hdslb.com
+i2.hdslb.com
+
+#阿里 CDN 路线
+i1.hdslb.com
+14.hdslb.com
+s1.hdslb.com
+s3.hdslb.com
+
+#腾讯 CDN 路线
+13.hdslb.com
+
+#未知 CDN 路线
+s2.hdslb.com
+boss.hds1b.com
+```
+
 ## 小龙云盘
 
 [小龙云盘](https://www.stariverpan.com/) 是一个基于区块链理念依托IPFS（InterPlanetary File System）的去中心化分布式存储应用；提供无限存储空间、海量资源共享，可以用来做图床或者视频床

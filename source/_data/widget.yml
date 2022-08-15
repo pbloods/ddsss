@@ -1,0 +1,47 @@
+bottom:
+  - class_name: aside aside-count
+    id_name:
+    name: 人生倒计时
+    icon: fas fa-hourglass-half
+    order: 3
+    html: '<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+        <div class="content">
+            <div class="item" id="dayProgress">
+                <div class="title">今日已经过去<span></span>小时</div>
+                <div class="progress">
+                    <div class="progress-bar">
+                        <div class="progress-inner progress-inner-1"></div>
+                    </div>
+                    <div class="progress-percentage"></div>
+                </div>
+            </div>
+            <div class="item" id="weekProgress">
+                <div class="title">这周已经过去<span></span>天</div>
+                <div class="progress">
+                    <div class="progress-bar">
+                        <div class="progress-inner progress-inner-2"></div>
+                    </div>
+                    <div class="progress-percentage"></div>
+                </div>
+            </div>
+            <div class="item" id="monthProgress">
+                <div class="title">本月已经过去<span></span>天</div>
+                <div class="progress">
+                    <div class="progress-bar">
+                        <div class="progress-inner progress-inner-3"></div>
+                    </div>
+                    <div class="progress-percentage"></div>
+                </div>
+            </div>
+            <div class="item" id="yearProgress">
+                <div class="title">今年已经过去<span></span>个月</div>
+                <div class="progress">
+                    <div class="progress-bar">
+                        <div class="progress-inner progress-inner-4"></div>
+                    </div>
+                    <div class="progress-percentage"></div>
+                </div>
+            </div>
+        </div>
+'

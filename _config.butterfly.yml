@@ -673,7 +673,7 @@ aside:
     enable: true
     post_count: true
     last_push_date: true
-    sort_order: # Don't modify the setting unless you know how it works
+    sort_order: 4 # Don't modify the setting unless you know how it works
 
 # busuanzi count for PV / UV in site
 # 訪問人數
@@ -846,6 +846,7 @@ inject:
   bottom:
     # - <script src="xxxx"></script>
     - <script src="/js/pblood.js"></script>
+
 
 # CDN
 # Don't modify the following settings unless you know how they work

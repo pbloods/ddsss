@@ -5,7 +5,8 @@ category:
 tag:
   - android
 top_img: false
-cover: https://pblood.oss-cn-hongkong.aliyuncs.com/blog/cover/linux.png
+cover: 'https://pblood.oss-cn-hongkong.aliyuncs.com/blog/cover/linux.png'
+abbrlink: 3868674743
 ---
 
 1. 开启ADB
