@@ -79,11 +79,22 @@ cover: https://pblood.oss-cn-hongkong.aliyuncs.com/blog/cover/html.png
 锚文本：
 <a id="tips">提示部分</a>
 <a href="#tips">跳到提示部分</a>
+
+<!-- 当开发网站初期, 我们还不知道跳转地址的时候, href的值写#(空链接) -->
+<a href="#">空链接</a>
 ```
 
 ## 图片
 ```html
 <img src="URL" alt="替换文本" height="42" width="42">
+```
+
+## 音频/视频
+```html
+<audio src="./music.mp3" controls loop></audio>
+
+<video src="./video.mp4" controls autoplay muted loop></video>
+<!-- 谷歌浏览器视频自动播放必须是静音状态muted -->
 ```
 
 ## 样式

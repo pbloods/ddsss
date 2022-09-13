@@ -394,7 +394,7 @@ div#nav-right {
 
 
 #aside-content .card-widget, #recent-posts .recent-post-item, .append-item, .cardHover, .error404 #error-wrap .error-content, .layout>.recent-posts .pagination>:not(.space), .layout>div:first-child:not(.recent-posts) {
-    border: 1.5px solid var(--btn-bg);
+    border: 1px solid rgba(211, 211, 211, 0.8);
     transition: .3s;
 }
 
@@ -499,4 +499,24 @@ h6:before {
     background: #67c23a;
     background-image: linear-gradient(135deg, #4f9e28 25%, transparent 25%, transparent 50%, #4f9e28 50%, #4f9e28 75%, transparent 75%, transparent 100%);
     background-size: 30px 30px
+}
+
+
+/* 标签 */
+
+#aside-content .card-tag-cloud a {
+    border: 1px solid;
+    line-height: 1.5;
+    border-radius: 6px;
+    margin: 3px;
+    padding: 0 5px;
+}
+
+.tag-cloud-list a {
+    border: 1px solid;
+    line-height: 1.5;
+    border-radius: 6px;
+    padding: 5px 15px;
+    font-size: 1.2rem;
+    margin: 5px;
 }

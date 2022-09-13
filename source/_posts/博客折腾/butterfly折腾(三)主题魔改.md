@@ -197,6 +197,71 @@ cover:
 }
 ```
 
+### 标签页美化(源)
+参考<https://blog.leonus.cn/2022/tags.html>
+
+修改`butterfly\scripts\helpers\page.js`
+```diff
+# 添加标签数量
+- result += `<a href="${env.url_for(tag.path)}" style="${style}">${tag.name}</a>`
++ result += `<a href="${env.url_for(tag.path)}" style="${style}">${tag.name} (${tag.length})</a>`
+
+# 去掉字体大小变化
+- const minfontsize = options.minfontsize 
+- const maxfontsize = options.maxfontsize 
+- const unit = options.unit || 'px' 
+- const sizes = []
+- source.sort('length').forEach(tag => {
+-   const { length } = tag
+-   if (sizes.includes(length)) return
+-   sizes.push(length)
+- })
+- const length = sizes.length - 1
+- const ratio = length ? sizes.indexOf(tag.length) / length : 0
+- const size = minfontsize + ((maxfontsize - minfontsize) * ratio)
+- let style = `font-size: ${parseFloat(size.toFixed(2))}${unit};`
+```
+
+标签从大到小排序
+```js
+hexo.extend.helper.register('cloudTags', function(options = {}) {
+    const env = this
+    let source = options.source
+    const limit = options.limit
+    // 从小到大排序然后再翻转，即从大到小排序
+    source = source.sort('length').reverse()
+    let result = ''
+    if (limit > 0) source = source.limit(limit)
+
+    source.forEach(tag => {
+        const color = 'rgb(' + Math.floor(Math.random() * 201) + ', ' + Math.floor(Math.random() * 201) + ', ' + Math.floor(Math.random() * 201) + ')' // 0,0,0 -> 200,200,200
+        result += `<a href="${env.url_for(tag.path)}" style="color: ${color}">${tag.name} (${tag.length})</a>`
+    })
+    return result
+})
+```
+
+加上边框
+```css
+/* 标签 */
+#aside-content .card-tag-cloud a {
+    border: 1px solid;
+    line-height: 1.5;
+    border-radius: 6px;
+    margin: 3px;
+    padding: 0 5px;
+}
+
+.tag-cloud-list a {
+    border: 1px solid;
+    line-height: 1.5;
+    border-radius: 6px;
+    padding: 5px 15px;
+    font-size: 1.2rem;
+    margin: 5px;
+}
+```
+
 ### 渐变色分类页布局(源)
 >[预览](https://blog.leonus.cn/categories/)，参考：[hexo博客相关 | Leonus](https://blog.leonus.cn/2022/hexo.html)
 
