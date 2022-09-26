@@ -17,18 +17,18 @@ date: 2022-04-10 06:36:02
 # 安装
 
 用到的工具：
-- [Nodejs](https://nodejs.org/zh-cn/)
-- [Git](https://git-scm.com/downloads)
+- [Nodejs](https://nodejs.org/zh-cn/)(C:\code\node)
+- [Git](https://git-scm.com/downloads)(C:\code\git\bin)
 - Windows 10
 
 ## 安装 Hexo
-1. 安装 hexo 初始化脚本
-```shell
-npm install -g hexo-cli
-```
-2. 启用 windows shell 外部脚本
+1. 启用 windows shell 外部脚本
 ```powershell
 Set-ExecutionPolicy -ExecutionPolicy Bypass
+```
+2. 安装 hexo 初始化脚本
+```shell
+npm install -g hexo-cli
 ```
 3. 创建并进入 hexo 目录，作为博客目录
 ```shell

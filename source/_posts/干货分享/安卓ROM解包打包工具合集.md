@@ -18,7 +18,7 @@ cover: https://pblood.oss-cn-hongkong.aliyuncs.com/blog/cover/linux.png
 
 ### payload.bin
 
-工具：https://github.com/vm03/payload_dumper，Windows版本：https://mrzzoxo.lanzouw.com/iR65zpaueyd
+工具：(https://github.com/vm03/payload_dumper) Windows版本：(https://mrzzoxo.lanzouw.com/iR65zpaueyd)
 
 ### system.dat.br
 
