@@ -13,7 +13,7 @@ date: 2021-06-14 08:00:00
 - [官方文档](https://developer.android.com/studio/command-line/adb)
 - [闷骚程序员整理的 adb 使用手册](https://mazhuang.org/awesome-adb/)
 
-# ADB常用命令
+## ADB常用命令
 
 Android 系统是基于`Linux`内核的，所以`Linux`里的很多命令在`Android`里也有相同或类似的实现，在`adb shell`里可以调用。
 
@@ -61,7 +61,7 @@ adb reboot                                         #从 Recovery 重启到系统
 adb reboot bootloader                              #重启到 Fastboot 模式
 ```
 
-# Fastboot常用命令
+## Fastboot常用命令
 
 ```shell
 fastboot devices                                    #列出连接的设备
@@ -79,3 +79,17 @@ fastboot format userdata                             #清除userdata分区
 fastboot boot kernel.img ramdisk.gz                  #刷入kernel.img
 fastboot flash:raw boot kernel.img ramdisk.gz        #提取kernel.img
 ```
+
+## 一加8T玩机指南
+
+### 常用快捷键
+
+fastboot模式：电源键+音量减（关机状态）
+recovery模式：从fastboot模式进入
+
+强制关机：长按电源键（正常开机状态）；长按电源键+音量加键+音量减键（系统下线状态）
+
+### 玩机资源
+
+- 一加8T/9R 官方安卓12（ColorOS 12.1 / 氧OS 12.1）[非官方TWRP_3.6.2_12_27082022](TWRP_3.6.2_12_27082022)，支持自动解密
+- [一加8T 刷机包_官方ROM_全量包_线刷包_救砖包_降级包_固件下载](https://yun.daxiaamu.com/OnePlus_Roms_2/%E4%B8%80%E5%8A%A08T/)
