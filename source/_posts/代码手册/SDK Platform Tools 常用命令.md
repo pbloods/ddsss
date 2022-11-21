@@ -84,8 +84,15 @@ fastboot flash:raw boot kernel.img ramdisk.gz        #提取kernel.img
 
 ### AB双分区刷机命令
 
-`fastboot flash boot boot.img`：默认刷入当前boot分区
-`fastboot flash boot_a/boot_b boot.img`：刷入指定boot分区  
+默认刷入当前boot分区：
+```
+fastboot flash boot boot.img
+```
+
+刷入指定boot分区：
+```
+fastboot flash boot_a/boot_b boot.img
+```
 
 ### 常用快捷键
 
