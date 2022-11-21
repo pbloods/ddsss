@@ -82,6 +82,11 @@ fastboot flash:raw boot kernel.img ramdisk.gz        #提取kernel.img
 
 ## 一加8T玩机指南
 
+### AB双分区刷机命令
+
+`fastboot flash boot boot.img`：默认刷入当前boot分区
+`fastboot flash boot_a/boot_b boot.img`：刷入指定boot分区  
+
 ### 常用快捷键
 
 fastboot模式：电源键+音量减（关机状态）
