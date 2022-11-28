@@ -14,16 +14,21 @@ cover: https://pblood.oss-cn-hongkong.aliyuncs.com/blog/cover/html.png
 - [HTML教程(HTML5 标准) | 菜鸟教程](https://www.runoob.com/html/html-tutorial.html)
 - [HTML5 参考手册](https://www.twle.cn/l/yufei/htmlref/html-ref-reference.html)
 - [HTML 全部标签](https://www.twle.cn/l/yufei/htmltag/html-tag-comment.html)
+* [HTML 元素参考 | MDN](https://developer.mozilla.org/zh-CN/docs/Web/HTML/Element)
+* [HTML 属性参考 | MDN](https://developer.mozilla.org/zh-CN/docs/Web/HTML/Attributes)
 
 ## HTML 基本结构
 ```html
 <!DOCTYPE html>
+<html lang="en">
 <head>
-<meta charset="utf-8">
-<title>文档标题</title>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>标题</title>
 </head>
 <body>
-可见文本...
+  主体
 </body>
 </html>
 ```
@@ -45,24 +50,29 @@ cover: https://pblood.oss-cn-hongkong.aliyuncs.com/blog/cover/html.png
 
 ## 文本格式化标签
 ```html
-<strong>重要的文本（加粗）</strong>
-<code>计算机代码</code>
-<em>强调文本</em>
-<i>斜体文本</i>
+<!-- 常用 -->
+<strong>粗体文本(强调)</strong>
+<em>倾斜文本(强调)</em>
+<del>删除文本(强调)</del>
+<ins>带下划线的文本(强调)</ins>
+
+<small>小文本</small>
+<mark>高亮文本</mark>
+<sub>下标文本</sub>
+<sup>上标文本</sup>
+
+<!-- 不常用 -->
+<dfn>定义项目</dfn>
+<code>一段电脑代码 print("Hello World")</code>
+<samp>计算机样本</samp>
 <kbd>键盘输入</kbd>
-<pre>预格式化文本</pre>
-<small>更小的文本</small>
+<var>变量</var>
 
-
-<abbr> （缩写）
-<address> （联系信息）
-<bdo> （文字方向）
-<blockquote> （从另一个源引用的部分）
-<cite> （工作的名称）
-<del> （删除的文本）
-<ins> （插入的文本）
-<sub> （下标文本）
-<sup> （上标文本）
+<!-- 废弃 -->
+<b>粗体文本</b>
+<i>斜体文本</i>
+<s>删除文本</s>
+<u>带下划线的文本</u>
 ```
 
 ## 链接
@@ -97,16 +107,22 @@ cover: https://pblood.oss-cn-hongkong.aliyuncs.com/blog/cover/html.png
 <!-- 谷歌浏览器视频自动播放必须是静音状态muted -->
 ```
 
-## 样式
-```html
-<<style>
-h1{color:red;}p{color:blue;}</style>
-```
-
 ## 区块
 ```html
+<!-- 无语义，独占一行 -->
 <div>文档中的块级元素</div>
+<!-- 无语义，一行显示 -->
 <span>文档中的内联元素</span>
+```
+
+## 样式
+```html
+<style>
+.div {
+    margin-top: 20px;
+    color: blue;
+}
+</style>
 ```
 
 ## 无序列表
@@ -178,7 +194,7 @@ h1{color:red;}p{color:blue;}</style>
           </tr>
         </tfoot>
       </table>
-      <!-- <thead>、<tbody> 和 <tfoot> 元素默认不会影响表格的布局，一般用于为这些元素定义CSS样式，改变表格的局部外观。 -->
+      <!-- <thead>、<tbody> 和 <tfoot> 元素默认不会影响表格的布局，一般用于定义CSS样式，改变表格的局部外观。 -->
 ```
 
 ## 框架
@@ -189,32 +205,37 @@ h1{color:red;}p{color:blue;}</style>
 ## 表单
 ```html
 <form action="demo_form.php" method="post/get">
+
+  <!-- 输入框 -->
   <input type="text" name="email" size="40" maxlength="50" placeholder="请输入文本内容">
-  <input type="password">
-  <input type="checkbox" checked="checked">
-  <input type="radio" checked="checked">
-
-  <!-- lable标签可将标签包裹的文本和输入input动作绑定 -->
-  <label>
-    <input type="radio" name="sex" checked>男
-  </label>
-  <label>
-    <input type="radio" name="sex">女
-  </label>
-
-  <input type="submit" value="发送">
-  <input type="reset">
-  <input type="hidden">
+  <input type="password" placeholder="请输入密码">
+  <!-- 单选（checked默认选中） -->
+  <input type="checkbox" checked>
+  <input type="radio" checked>
+    <!-- lable标签可将标签包裹的文本和input绑定，扩大选择范围，name值相同实现单选 -->
+    <label>
+      <input type="radio" name="sex">男
+    </label>
+    <label>
+      <input type="radio" name="sex">女
+    </label>
+  <!-- 提交、重置、input自定义按钮与button实现方法 -->
+  <input type="submit" value="提交"> || <button type="submit">提交</button>
+  <input type="reset" value="重置"> || <button type="reset">重置</button>
+  <input type="button" value="自定义按钮"> || <button>自定义按钮</button>
+  <!-- 上传文件（multiple多文件上传） -->
+  <input type="file" multiple>
 
   <!-- 下拉框 -->
   <select>
     <option>苹果</option>
-    <option selected="selected">香蕉</option>
+    <option selected>香蕉</option>
     <option>樱桃</option>
   </select>
-  
-  <!-- 文本区域（多行文本） -->
-  <textarea name="comment" rows="60" cols="20"></textarea>
+
+  <!-- 文本域（输入多行文本，cols:宽度；rows:可见行数） -->
+  <textarea name="comment" cols="20" rows="60"></textarea>
+
 </form>
 ```
 
