@@ -137,16 +137,48 @@ h1{color:red;}p{color:blue;}</style>
 
 ## 表格
 ```html
-<table border="1">
-  <tr>
-    <th>表格标题</th>
-    <th>表格标题</th>
-  </tr>
-  <tr>
-    <td>表格数据</td>
-    <td>表格数据</td>
-  </tr>
-</table>
+    <table border="1" width="400" height="400">
+        <!-- 表格整体的大标题 -->
+        <caption><h3>优秀学生信息表格</h3></caption>
+        <!-- 表格的头部 -->
+        <thead>
+          <tr>
+            <th>年级</th>
+            <th>姓名</th>
+            <th>学号</th>
+            <th>班级</th>
+          </tr>
+        </thead>
+        <!-- 表格的主体 -->
+        <tbody>
+          <tr>
+            <!-- 保留 -->
+            <td rowspan="2">高三</td>
+            <td>张三</td>
+            <td>110</td>
+            <td>三年二班</td>
+          </tr>
+          <tr>
+            <!-- 删除 -->
+            <!-- <td>高三</td> -->
+            <td>赵四</td>
+            <td>120</td>
+            <td>三年三班</td>
+          </tr>
+        </tbody>
+        <!-- 表格的底部 -->
+        <tfoot>
+          <tr>
+            <td>评语</td>
+            <!-- 保留 -->
+            <td colspan="3">你们都很优秀</td>
+            <!-- 统统删除掉 -->
+            <!-- <td>你们都很优秀</td> -->
+            <!-- <td>你们都很优秀</td> -->
+          </tr>
+        </tfoot>
+      </table>
+      <!-- <thead>、<tbody> 和 <tfoot> 元素默认不会影响表格的布局，一般用于为这些元素定义CSS样式，改变表格的局部外观。 -->
 ```
 
 ## 框架
@@ -157,19 +189,32 @@ h1{color:red;}p{color:blue;}</style>
 ## 表单
 ```html
 <form action="demo_form.php" method="post/get">
-<input type="text" name="email" size="40" maxlength="50">
-<input type="password">
-<input type="checkbox" checked="checked">
-<input type="radio" checked="checked">
-<input type="submit" value="Send">
-<input type="reset">
-<input type="hidden">
-<select>
-<option>苹果</option>
-<option selected="selected">香蕉</option>
-<option>樱桃</option>
-</select>
-<textarea name="comment" rows="60" cols="20"></textarea>
+  <input type="text" name="email" size="40" maxlength="50" placeholder="请输入文本内容">
+  <input type="password">
+  <input type="checkbox" checked="checked">
+  <input type="radio" checked="checked">
+
+  <!-- lable标签可将标签包裹的文本和输入input动作绑定 -->
+  <label>
+    <input type="radio" name="sex" checked>男
+  </label>
+  <label>
+    <input type="radio" name="sex">女
+  </label>
+
+  <input type="submit" value="发送">
+  <input type="reset">
+  <input type="hidden">
+
+  <!-- 下拉框 -->
+  <select>
+    <option>苹果</option>
+    <option selected="selected">香蕉</option>
+    <option>樱桃</option>
+  </select>
+  
+  <!-- 文本区域（多行文本） -->
+  <textarea name="comment" rows="60" cols="20"></textarea>
 </form>
 ```
 
