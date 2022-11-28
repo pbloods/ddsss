@@ -11,9 +11,9 @@ cover: https://pblood.oss-cn-hongkong.aliyuncs.com/blog/cover/html.png
 ---
 
 ## 参考
-- [HTML教程(HTML5 标准) | 菜鸟教程](https://www.runoob.com/html/html-tutorial.html)
-- [HTML5 参考手册](https://www.twle.cn/l/yufei/htmlref/html-ref-reference.html)
-- [HTML 全部标签](https://www.twle.cn/l/yufei/htmltag/html-tag-comment.html)
+* [HTML教程(HTML5 标准) | 菜鸟教程](https://www.runoob.com/html/html-tutorial.html)
+- [HTML5 参考手册 | 简单教程](https://www.twle.cn/l/yufei/htmlref/html-ref-reference.html)
+- [HTML 全部标签 | 简单教程](https://www.twle.cn/l/yufei/htmltag/html-tag-comment.html)
 * [HTML 元素参考 | MDN](https://developer.mozilla.org/zh-CN/docs/Web/HTML/Element)
 * [HTML 属性参考 | MDN](https://developer.mozilla.org/zh-CN/docs/Web/HTML/Attributes)
 
