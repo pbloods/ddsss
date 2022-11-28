@@ -175,6 +175,7 @@ h1{color:red;}p{color:blue;}</style>
 
 ## HTML 实体
 ```html
+&nbsp; 等同于`空格`
 &lt; 等同于 <
 &gt; 等同于 >
 &#169; 等同于 ©
