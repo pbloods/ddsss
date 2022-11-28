@@ -10,7 +10,7 @@ date: 2022-01-18 14:27:01
 cover: https://pblood.oss-cn-hongkong.aliyuncs.com/blog/cover/html.png
 ---
 
-## 参考
+**参考：**
 * [HTML教程(HTML5 标准) | 菜鸟教程](https://www.runoob.com/html/html-tutorial.html)
 - [HTML5 参考手册 | 简单教程](https://www.twle.cn/l/yufei/htmlref/html-ref-reference.html)
 - [HTML 全部标签 | 简单教程](https://www.twle.cn/l/yufei/htmltag/html-tag-comment.html)
