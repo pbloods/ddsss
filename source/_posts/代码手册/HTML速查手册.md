@@ -45,14 +45,14 @@ cover: https://pblood.oss-cn-hongkong.aliyuncs.com/blog/cover/html.png
 
 ## 文本格式化标签
 ```html
-<b>粗体文本</b>
+<strong>重要的文本（加粗）</strong>
 <code>计算机代码</code>
 <em>强调文本</em>
 <i>斜体文本</i>
-<kbd>键盘输入</kbd> 
+<kbd>键盘输入</kbd>
 <pre>预格式化文本</pre>
 <small>更小的文本</small>
-<strong>重要的文本</strong>
+
 
 <abbr> （缩写）
 <address> （联系信息）
