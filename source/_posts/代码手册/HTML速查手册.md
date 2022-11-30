@@ -3,7 +3,7 @@ title: HTML 速查手册
 categories:
   - 代码手册
 tags:
-  - html
+  - HTML
 top_img: false
 abbrlink: 4102532533
 date: 2022-01-18 14:27:01
