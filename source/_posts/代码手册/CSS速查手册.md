@@ -5,7 +5,6 @@ categories:
 tags:
   - css
 top_img: false
-abbrlink: 4102532533
 date: 2022-01-28 14:27:01
 ---
 
@@ -36,29 +35,32 @@ p {
     padding: 0;
 }
 
-/* 后代选择器(p是div的后代选择器) */
+/* 后代选择器(选择p标签，p是div的后代选择器) */
 div p {
     color: red;
 }
-/* 子代选择器(p是div的子选择器) */
+/* 子代选择器(选择p标签，p是div的子选择器) */
 div>p {
     color: red;
 }
 
-/* 并集选择器 */
+/* 并集选择器(选择多个标签) */
 div, p {
     color: red;
 }
-/* 交集选择器 */
-div.ClassName {
+/* 交集选择器(选择同时具有div和p的标签) */
+div.p {
     color: red;
 }
 
-/* hover伪类选择器(鼠标悬停效果) */
+/* hover伪类选择器(设置鼠标悬停效果) */
 div:hover {
     color: red;
 }
 ```
+
+**优先级(选择范围越广优先级越低，个数越少优先级越低)：**
+继承 < 通配符选择器 < 标签选择器 < 类选择器 < id选择器 < 行内样式 < !important(非继承时优先级最高)
 
 ## 字体和文本样式
 
@@ -93,8 +95,8 @@ text {
     text-align：left; /* 默认left, 可选 center | right */
 
     /* 文本首行缩进 */
-    text-align: 40px;
-    text-align: 2em; /* 推荐：1em = 当前标签的font-size大小 */
+    text-indent: 40px;
+    text-indent: 2em; /* 推荐：1em = 当前标签的font-size大小 */
 
     /* 下划线 */
     text-decoration: underline;
@@ -110,14 +112,6 @@ line {
     font: 30px/1.5 Microsoft YaHei,sans-serif;
     /* 单行文字垂直居中 */
     line-height = 行高
-}
-```
-
-## 
-```css
-div {
-    /* 标签(div、p、h)水平居中 */
-    margin: 0 auto;
 }
 ```
 
@@ -143,11 +137,30 @@ div {
 ```
 
 ## 元素显示模式
-元素显示模式分为块级元素(div、p、h、ul、li、dl、dt、dd、form、header、nav、footer...)、行内元素(a、span、strong、ins...)、行内块元素(input、textarea、button、select...)，彼此之间可以转换。
+元素显示模式分为：
+**块级元素(可设置宽高，独占一行)**
+div、p、h、ul、li、dl、dt、dd、form、header、nav、footer...
+**行内元素(不可设置宽高，行内显示)**
+a、span、strong、ins...
+**行内块元素(可设置宽高，行内显示)**
+input、textarea、button、select...
+
+彼此之间可以转换
 ```css
 div {
     display: block; /* 转换成块级元素 */
-    display: inline-block; /* 转换成行内块元素 */
     display: inline; /* 转换成行内元素 */
+    display: inline-block; /* 转换成行内块元素 */
 }
 ```
+
+## 盒子模型
+
+[](https://www.runoob.com/images/box-model.gif)
+
+不同部分的说明：
+
+- **Margin(外边距)** - 清除边框外的区域，外边距是透明的。
+- **Border(边框)** - 围绕在内边距和内容外的边框。
+- **Padding(内边距)** - 清除内容周围的区域，内边距是透明的。
+- **Content(内容)** - 盒子的内容，显示文本和图像。
