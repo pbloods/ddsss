@@ -16,6 +16,7 @@ date: 2022-01-28 14:27:01
 
 ## 选择器
 
+**基本选择器**
 ```css
 /* 标签选择器 */
 p {
@@ -55,15 +56,10 @@ div, p {
 div.p {
     color: red;
 }
+```
 
-/* ************************************************************ */
-
-/* hover伪类选择器(设置鼠标悬停效果) */
-div:hover {
-    color: red;
-}
-
-/* 结构伪类选择器(根据元素结构关系选择元素) */
+**结构伪类选择器(根据元素结构关系选择元素)**
+```css
 /* 第1个li */
 li:first-child {
     color: red;
@@ -80,15 +76,41 @@ li:nth-last-child(n) {
 li:last-child {
     color: red;
 }
+```
 
-/* ************************************************************ */
+属性选择器
+```css
+/* attr: 属性；val:属性值 */
+div[attr] {
+    background-color: red;
+}
+div[attr="val"] {
+    background-color: red;
+}
+```
 
-/* 伪元素选择器(通过CSS创建元素(行内)，必须有content属性) */
+**伪元素选择器(通过CSS创建元素(行内)，必须有content属性)**
+```css
 div:before {
     content: '';
 }
 div:after {
     content: '';
+}
+```
+
+激活的、已访问的、未访问的或者当有鼠标悬停在其上的链接
+```css
+a:link    {color:green;}
+a:visited {color:green;}
+a:hover   {color:red;}
+a:active  {color:yellow;}
+```
+
+焦点伪类选择器(鼠标进入输入框时的状态)
+```css
+input:focus {
+    background-color: red;
 }
 ```
 
@@ -223,7 +245,7 @@ div {
     margin:25px; /* 上下左右 */
     margin:0 auto; /* 版心居中 */
     /* 注意：1.垂直布局的两个盒子的margin会合并，只显示最大值；
-            2.互相嵌套的块级元素，子元素的margin-top会作用在父元素上，给父元素添加overflow: hidden即可解决；
+            2.互相嵌套的块级元素，子元素的margin-top会作用在父元素上(外边距塌陷)，给父元素添加`overflow: hidden;`即可解决；
             3.行内标签的margin-top和margin-bottom不生效 */
 
     /* 将padding和border计算进width和height，无需手动计算新宽高（CSS3） */
@@ -237,13 +259,208 @@ div {
 }
 ```
 
-## Float 浮动
+## Float(浮动)
 
+**作用：**
+- 图文环绕
+- 消除相邻块级元素水平放置时由于换行产生的间隙
+- 丰富布局多样性
+
+**特点：**
+- 设置了浮动的元素会脱离标准流，而且可覆盖标准流中的元素(但不包括元素内容);
+- 一行可显示多个，可设置宽高(相当于**行内块**);
+- 几个浮动的元素放到一起，如果有空间的话，它们将彼此相邻;
+* 浮动元素不能通过`text-align: center;`或者`margin: 0 auto;`居中;
+
+**设置浮动**
+```css
+div {
+    float: left; /* left、center、right */
+}
+```
+
+**清除浮动**(父子级标签，子级浮动，父级没有高度，后面的标准流盒子会受到影响)
+```css
+/* 清除左右两侧浮动的影响(直接给父元素加overflow: hidden即可) */
+
+/* 清除左右两侧浮动的影响(额外标签) */
+.clearfix {
+    clear: both;
+}
+
+/* 清除左右两侧浮动的影响(单伪元素) */
+.clearfix::after {
+    content: '';
+    display: block;
+    clear: both;
+    /* 隐藏伪元素(兼容性) */
+    height: 0;
+    visibility: hidden;
+}
+
+/* 清除左右两侧浮动的影响和外边距塌陷的问题(双伪元素) */
+.clearfix::before, .clearfix::after {
+    content: '';
+    display: table;
+  }
+  .clearfix::after {
+    clear: both;
+  }
+```
+
+## Position(定位)
+
+**应用：**
+- 层叠显示
+- 固定元素位置
+
+**静态定位**
+默认值，遵循正常的文档流对象, 静态定位的元素不会受到 top, bottom, left, right影响 
+```css
+div {
+    position: static;
+}
+```
+
+**相对定位**
+偏移后仍占有原来位置, 相对自身正常位置偏移
+```css
+div {
+    position: relative;
+    left: 20px; /* 以元素左边界为准向右偏移20px, 与right同时出现会覆盖right */
+    right: 20px; /* 以元素右边界为准向左偏移20px, 与left同时出现不生效 */
+    top: 20px; /* 以元素上边界为准向下偏移20px, 与bottom同时出现会覆盖bottom */
+    bottom: 20px; /* 以元素下边界为准向上偏移20px, 与top同时出现不生效 */
+}
+```
+
+**绝对定位**
+脱标，偏移后不占原有位置, 具备行内块特性，若有已定位的长辈级元素就根据其定位，没有则根据浏览器窗口定位
+```css
+div {
+    position: absolute;
+    left: 20px;
+    right: 20px;
+    top: 20px;
+    bottom: 20px;
+    /* 绝对定位盒子不能使用`margin: 0 auto;`居中，替代方案如下： */
+    position: absolute;
+    left: 50%;
+    margin-left: -150px;
+    top: 50%;
+    margin-top: -150px;
+    width: 300px;
+    height: 300px;
+    /* 或者 */
+    transform: translate(-50%, -50%);
+}
+```
+
+**固定定位**
+脱标，具备行内块特性，仅相对于浏览器定位
+```css
+div {
+    position: fixed;
+}
+```
+
+## 装饰
+
+**vertical-align(垂直对齐)**
+适用于行内、行内块、图片之间的对齐
+- `baseline`：基线对齐(默认) 
+- `top`：顶部对齐
+- `middle`：中部对齐
+- `bottom`：底部对齐
+
+**cursor(光标)**
+- `default`：默认值，通常是箭头
+- `pointer`：小手，提示可以点击
+- `text`：工字型，提示可以输入
+- `move`：十字光标，提示可以移动
+
+**border-radius(边框圆角)**
+左上角开始，顺时针赋值，少值看对角
+```css
+div {
+    border-radius: 10px;
+    border-radius: 10px, 40px;
+    border-radius: 10px, 40px, 60px;
+    border-radius: 10px, 40px, 60px, 80px;
+}
+```
+
+画圆
+```css
+div {
+    width: 300px;
+    height: 300px;
+    background-color: pink;
+    border-radius: 50%; /* 盒子尺寸一半 */
+}
+```
+
+胶囊
+```css
+div {
+    width: 300px;
+    height: 100px;
+    background-color: pink;
+    border-radius: 50px; /* 盒子高度的一半 */
+}
+```
+
+三角形
+```css
+div {
+/* width: 100px;
+height: 100px; */
+width: 0;
+height: 0;
+/* background-color: pink; */
+/* transparent: 透明 */
+border-top: 10px solid transparent;
+border-right: 10px solid transparent;
+border-bottom: 10px solid transparent;
+border-left: 10px solid orange;
+}
+```
+
+
+**overflow(内容溢出部分显示效果)**
+- `visible`：默认值，溢出部分可见
+- `hidden`：溢出部分隐藏
+- `scroll`：无论是否溢出都显示滚动条
+- `auto`：根据是否溢出，自动显示或隐藏滚动条
+
+**opacity(元素透明)**
+```css
+div {
+    opacity: 0.5; /* 0-1 */
+}
+```
 
 ## 杂项
 
+**CSS书写顺序(效率更高)：**
+1. 定位 / 浮动 / display
+2. 盒子模型
+3. 文字属性
+
+**元素层级关系：**
+- 不同布局方式：标准流 < 浮动 < 定位
+- 不同定位：层级相同，写在HTML下面的元素会覆盖上面的元素，可通过z-lndex属性(整数，取值越大越靠上)改变顺序
+
+
+**常用**
 ```css
 /* 去掉列表符号 */
 ul {
     list-style: none;
 }
+
+/* 隐藏元素 */
+div {
+    display: none;
+}
+```

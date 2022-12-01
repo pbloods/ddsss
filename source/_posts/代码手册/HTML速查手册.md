@@ -197,6 +197,17 @@ cover: https://pblood.oss-cn-hongkong.aliyuncs.com/blog/cover/html.png
       <!-- <thead>、<tbody> 和 <tfoot> 元素默认不会影响表格的布局，一般用于定义CSS样式，改变表格的局部外观。 -->
 ```
 
+**通过CSS实现细线边框效果**
+```css
+table {
+  border: 1px soild #000;
+  border-collapse: collapse;
+}
+th, td {
+  border: 1px soild #000;
+}
+```
+
 ## 框架
 ```html
 <iframe src="demo_iframe.htm"></iframe>
