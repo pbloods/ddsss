@@ -16,7 +16,10 @@ date: 2022-01-28 14:27:01
 
 ## 选择器
 
-**基本选择器**
+**优先级(选择范围越广优先级越低，个数越少优先级越低)：**
+继承 < 通配符选择器 < 标签选择器 < 类选择器 < id选择器 < 行内样式 < !important(非继承时优先级最高)
+
+### 基本选择器
 ```css
 /* 标签选择器 */
 p {
@@ -58,7 +61,8 @@ div.p {
 }
 ```
 
-**结构伪类选择器(根据元素结构关系选择元素)**
+### 结构伪类选择器
+根据元素结构关系选择元素
 ```css
 /* 第1个li */
 li:first-child {
@@ -78,7 +82,7 @@ li:last-child {
 }
 ```
 
-属性选择器
+### 属性选择器
 ```css
 /* attr: 属性；val:属性值 */
 div[attr] {
@@ -89,7 +93,9 @@ div[attr="val"] {
 }
 ```
 
-**伪元素选择器(通过CSS创建元素(行内)，必须有content属性)**
+### 伪元素选择器
+通过CSS创建元素(行内)，必须有content属性
+
 ```css
 div:before {
     content: '';
@@ -99,6 +105,7 @@ div:after {
 }
 ```
 
+### 其它
 激活的、已访问的、未访问的或者当有鼠标悬停在其上的链接
 ```css
 a:link    {color:green;}
@@ -114,13 +121,11 @@ input:focus {
 }
 ```
 
-**优先级(选择范围越广优先级越低，个数越少优先级越低)：**
-继承 < 通配符选择器 < 标签选择器 < 类选择器 < id选择器 < 行内样式 < !important(非继承时优先级最高)
-
 ## 字体和文本样式
 
+### font
 ```css
-font {
+div {
     /* 一般浏览器默认字号为16px，px是逻辑像素单位 */
     font-size: 30px;
 
@@ -143,9 +148,11 @@ font {
     /* font: style weight size family */
     font: italic 700 30px Microsoft YaHei,sans-serif;
 }
+```
 
-
-text {
+### text
+```css
+div {
     /* 内容水平对齐  */
     text-align：left; /* 默认left, 可选 center | right */
 
@@ -158,36 +165,82 @@ text {
     /* 去除下划线 */
     text-decoration: none;
 }
+```
 
-line {
+### line-height
+```css
+div {
     /* 行高（文本、文本上间距、文本下间距的高度和） */
     line-height: 40px;
     line-height: 1.5; /* 当前标签font-size的倍数 */
-    /* 复合属性写法（size/line-height） */
-    font: 30px/1.5 Microsoft YaHei,sans-serif;
     /* 单行文字垂直居中 */
     line-height = 行高
 }
 ```
 
-## 背景
+复合属性写法(size/line-height)
 ```css
 div {
-    /* 背景色 */
+    font: 30px/1.5 Microsoft YaHei,sans-serif;
+}
+```
+
+## background(背景)
+
+### background-color(背景色)
+```css
+div {
     background-color: blue;
     background-color: #ffffff;
     background-color: rgb(255, 255, 255);
     background-color: rgba(255, 255, 255, 0.5);
-    /* 背景图 */
+}
+```
+
+### 背景图
+
+```css
+div {
     background-image: url();
+
     /* 背景图平铺(图片不足以铺满空间时是否复制多张以铺满) */
     background-repeat: repeat; /* repeat:平铺(默认值); no-repeat:不平铺; repeat-x:水平铺; repeat-y:垂直铺 */
-    /* 背景图位置 */
-    background-position: 水平位置(?px) 垂直位置(?px); /* 水平:left、center、right; 垂直: top、center、bottom */
 
-    /* 简写形式（复合属性），无先后顺序要求、可任意省略 */
-    background: background-color background-image background-repeat background-position;
-    background: blue url() no-repeat left bottom;
+    /* 背景图位置 */
+    background-position: 水平 垂直; /* 水平:(?px)、left、center、right; 垂直: (?px)、top、center、bottom */
+    
+    /* 设置背景图大小 */
+    background-size: 宽度 高度; /* 数字+px；百分比；contain:等比缩放到最大；cover:等比缩放到填满盒子 */
+}
+```
+
+简写形式（复合属性），无先后顺序要求、可任意省略
+```css
+div {
+    /* background: color image repeat position/size; */
+    background: blue url() no-repeat left bottom/cover;
+}
+```
+
+**图像拼合(精灵图)**
+```css
+div {
+    width: 46px;
+    height: 44px;
+    background-image: url(./images/1.png);
+    background-position: -40px -90px; /* 水平: 左负右正；垂直: 上正下负 */
+    /* 在1.png (0 -90px)的位置裁剪一个宽46px, 高44px的图 */
+}
+```
+
+**渐变色**
+```css
+/* 透明到黑色半透明渐变 */
+div {
+    background-image: linear-gradient(
+        transparent,
+        rgba(0,0,0, .6)
+    );
 }
 ```
 
@@ -343,6 +396,7 @@ div {
     right: 20px;
     top: 20px;
     bottom: 20px;
+
     /* 绝对定位盒子不能使用`margin: 0 auto;`居中，替代方案如下： */
     position: absolute;
     left: 50%;
@@ -366,20 +420,20 @@ div {
 
 ## 装饰
 
-**vertical-align(垂直对齐)**
+### vertical-align(垂直对齐)
 适用于行内、行内块、图片之间的对齐
 - `baseline`：基线对齐(默认) 
 - `top`：顶部对齐
 - `middle`：中部对齐
 - `bottom`：底部对齐
 
-**cursor(光标)**
+### cursor(光标)
 - `default`：默认值，通常是箭头
 - `pointer`：小手，提示可以点击
 - `text`：工字型，提示可以输入
 - `move`：十字光标，提示可以移动
 
-**border-radius(边框圆角)**
+### border-radius(边框圆角)*
 左上角开始，顺时针赋值，少值看对角
 ```css
 div {
@@ -387,6 +441,30 @@ div {
     border-radius: 10px, 40px;
     border-radius: 10px, 40px, 60px;
     border-radius: 10px, 40px, 60px, 80px;
+}
+```
+
+### text-shadow(文字阴影)
+- `h-shadow` 必需。水平阴影的位置。允许负值。
+- `v-shadow` 必需。垂直阴影的位置。允许负值。
+- `blur` 可选。模糊的距离。
+- `color` 可选。阴影的颜色
+```css
+h1 {
+    text-shadow: 2px 2px #ff0000;
+}
+```
+
+### box-shadow(盒子阴影)
+- `h-shadow` 必需的。水平阴影的位置。允许负值
+- `v-shadow` 必需的。垂直阴影的位置。允许负值
+- `blur` 可选。模糊度
+- `spread` 可选。阴影的大小
+- `color` 可选。阴影的颜色。在CSS颜色值寻找颜色值的完整列表
+- `inset` 可选。将外侧阴影改为内侧阴影
+```css
+div {
+    box-shadow: 10px 10px 5px #888888 inset;
 }
 ```
 
@@ -427,16 +505,67 @@ border-left: 10px solid orange;
 ```
 
 
-**overflow(内容溢出部分显示效果)**
+### overflow(内容溢出部分显示效果)
 - `visible`：默认值，溢出部分可见
 - `hidden`：溢出部分隐藏
 - `scroll`：无论是否溢出都显示滚动条
 - `auto`：根据是否溢出，自动显示或隐藏滚动条
 
-**opacity(元素透明)**
+### opacity(元素透明)
 ```css
 div {
     opacity: 0.5; /* 0-1 */
+}
+```
+
+### transition(过渡效果)
+配合hover使用, 谁变化谁加过渡属性
+```css
+.box {
+    width: 200px;
+    height: 200px;
+    background-color: pink;
+    /* 宽度200, 悬停的时候宽度600, 花费1秒钟 */
+    /* transition: width 1s, background-color 2s; */
+
+    /* 如果变化的属性多, 直接写all,表示所有 */
+    transition: all 1s;
+}
+
+.box:hover {
+    width: 600px;
+    background-color: red;
+}
+```
+
+### transform(平面转换)
+
+鼠标掠过时的动作效果
+```css
+div {
+    /* 移动 */
+    transform: translate(水平移动距离, 垂直移动距离);
+    transform: translate(移动距离); /* 单值表示只在x轴移动 */
+    transform: translateX(移动距离); /* 在x轴移动 */
+    transform: translateY(移动距离); /* 在y轴移动 */
+
+    /* 旋转 */
+    transform: rotate(角度); /* 角度单位:reg，如360reg */
+
+    /* 缩放 */
+    transform: scale(x轴缩放倍数, y轴缩放倍数);
+    transform: scale(缩放倍数);
+    transform: scale(0.8, 1.2);
+
+    /* 边走边转(复合属性, rotate在后) */
+    transform: translate() rotate();
+}
+```
+
+改变转换原点
+```css
+div {
+    transform-origin: 原点水平位置 原点垂直位置;
 }
 ```
 
@@ -449,7 +578,7 @@ div {
 
 **元素层级关系：**
 - 不同布局方式：标准流 < 浮动 < 定位
-- 不同定位：层级相同，写在HTML下面的元素会覆盖上面的元素，可通过z-lndex属性(整数，取值越大越靠上)改变顺序
+- 不同定位：层级相同，写在HTML下面的元素会覆盖上面的元素，可通过`z-lndex`属性(整数，取值越大越靠上)改变顺序
 
 
 **常用**

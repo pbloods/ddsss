@@ -104,7 +104,18 @@ cover: https://pblood.oss-cn-hongkong.aliyuncs.com/blog/cover/html.png
 <audio src="./music.mp3" controls loop></audio>
 
 <video src="./video.mp4" controls autoplay muted loop></video>
-<!-- 谷歌浏览器视频自动播放必须是静音状态muted -->
+<!-- 
+1、controls属性：显示控制组件
+2、loop属性：循环播放
+3、muted属性：静音播放
+4、preload属性：页面加载在播放
+5、width/heigth属性：视频的宽高
+6、autoplay属性：自动播放 -->
+<video width="100px" height="100px" onerror="fn()" controls >
+        <source src="movie.mp4" type="video/mp4">
+        <source src="#" type="">
+        Your brower does not support.
+    </video>
 ```
 
 ## 区块
@@ -125,7 +136,9 @@ cover: https://pblood.oss-cn-hongkong.aliyuncs.com/blog/cover/html.png
 </style>
 ```
 
-## 无序列表
+## 列表
+
+无序列表
 ```html
 <ul>
     <li>项目</li>
@@ -133,7 +146,7 @@ cover: https://pblood.oss-cn-hongkong.aliyuncs.com/blog/cover/html.png
 </ul>
 ```
 
-## 有序列表
+有序列表
 ```html
 <ol>
     <li>第一项</li>
@@ -141,7 +154,7 @@ cover: https://pblood.oss-cn-hongkong.aliyuncs.com/blog/cover/html.png
 </ol>
 ```
 
-## 定义列表
+定义列表
 ```html
 <dl>
   <dt>项目 1</dt>
