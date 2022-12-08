@@ -24,6 +24,7 @@ cover: https://pblood.oss-cn-hongkong.aliyuncs.com/blog/cover/html.png
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <!-- 移动端视口标签，使视口宽度等于设备宽度（默认值980px） -->
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>标题</title>
 </head>

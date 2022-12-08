@@ -5,14 +5,23 @@ categories:
 tags:
   - CSS
 top_img: false
-date: 2022-01-28 14:27:01
+date: 2022-01-22 14:27:01
 ---
 
 **参考：**
-
+* [CSS教程 | MDN](https://developer.mozilla.org/zh-CN/docs/Learn/CSS)
 * [CSS教程 | 菜鸟教程](https://www.runoob.com/css/css-tutorial.html)
 * [CSS基础教程 | 简单教程](https://www.twle.cn/l/yufei/css/css-basic-index.html)
-* [CSS教程 | MDN](https://developer.mozilla.org/zh-CN/docs/Learn/CSS)
+- [CSS 参考 - MDN](https://developer.mozilla.org/zh-CN/docs/Web/CSS/Reference)
+- [CSS参考手册 - 简单教程](https://www.twle.cn/l/yufei/cssref/css-ref-reference.html)
+
+**VsCode插件：**
+- `Open in Browser` 给鼠标右键添加在浏览器打开快捷键
+- `EasyLESS` CSS 预处理工具。简化CSS语法，丰富功能，自动生成CSS文件，详见[lesscss.org](https://lesscss.org/)
+- `One Dark Pro` 一款VsCode主题
+
+**框架**
+- [bootcss](https://www.bootcss.com/) 响应式布局
 
 ## 选择器
 
@@ -94,31 +103,24 @@ div[attr="val"] {
 ```
 
 ### 伪元素选择器
-通过CSS创建元素(行内)，必须有content属性
-
+通过两个冒号(CSS3)来定义，通过CSS创建元素(行内)，必须有content属性
 ```css
-div:before {
+div::before {
     content: '';
 }
-div:after {
+div::after {
     content: '';
 }
 ```
 
-### 其它
-激活的、已访问的、未访问的或者当有鼠标悬停在其上的链接
+### 伪类选择器
+通过单个冒号来定义，它定义了元素的状态，如点击按下，点击完成等，通过伪类可以为元素的状态修改样式。
 ```css
 a:link    {color:green;}
 a:visited {color:green;}
 a:hover   {color:red;}
 a:active  {color:yellow;}
-```
-
-焦点伪类选择器(鼠标进入输入框时的状态)
-```css
-input:focus {
-    background-color: red;
-}
+input:focus {color:yellow;} /* 鼠标移入输入框时的状态 */
 ```
 
 ## 字体和文本样式
@@ -164,6 +166,17 @@ div {
     text-decoration: underline;
     /* 去除下划线 */
     text-decoration: none;
+
+    /* 单行文字溢出省略号 */
+    text-overflow: ellipsis;
+    white-space: nowrap; /* 不换行 */
+    overflow:hidden;
+    /* 配合flex布局 */
+    flex: 1;
+    width: 0;
+
+    /* 俩行文字溢出省略号 */
+    webkit-line-clamp: 2;
 }
 ```
 
@@ -237,10 +250,7 @@ div {
 ```css
 /* 透明到黑色半透明渐变 */
 div {
-    background-image: linear-gradient(
-        transparent,
-        rgba(0,0,0, .6)
-    );
+    background-image: linear-gradient(transparent, rgba(0,0,0, .6));
 }
 ```
 
@@ -361,6 +371,98 @@ div {
   }
 ```
 
+## flex布局(弹性布局)
+float的替代 方案，无脱标问题，父元素添加`dispolay: flex;`，其子元素可以自动挤压或者拉伸。
+
+### 基本概念
+采用Flex布局的元素，称为Flex容器（flex container），简称”容器”。它的所有子元素自动成为容器成员，称为Flex项目（flex item），简称”项目”
+[](https://www.runoob.com/wp-content/uploads/2015/07/3791e575c48b3698be6a94ae1dbff79d.png)
+容器默认存在两根轴：水平的主轴（main axis）和垂直的交叉轴(侧轴)（cross axis）。
+**主轴**的开始位置（与边框的交叉点）叫做main start，结束位置叫做main end；
+**交叉轴(侧轴)**的开始位置叫做cross start，结束位置叫做cross end。
+项目默认沿主轴排列，宽高自适应，默认无间距。单个项目占据的主轴空间叫做main size，占据的交叉轴空间叫做cross size。
+
+### 基本属性
+- `flex-direction` 主轴的方向（即项目的排列方向，默认横向）
+- `flex-wrap` 定义如果一条轴线排不下，如何换行
+- `flex-flow` flex-direction属性和flex-wrap属性的简写形式，默认值为row nowrap
+- `justify-content` 项目在主轴上的对齐方式
+- `align-items` 定义项目在交叉轴上如何对齐
+- `align-content` 定义了多根轴线的对齐方式
+
+详情见[Flex 布局语法教程 | 菜鸟教程](https://www.runoob.com/w3cnote/flex-grammar.html)
+
+**flex-direction**
+```css
+div {
+    /* 修改主轴为垂直方向(侧轴变为水平方向) */
+    flex-direction: column;
+}
+```
+
+**flex-wrap**
+```css
+div {
+    /* 弹性盒子换行(默认不换行，超出宽度自动减小在一行排布) */
+    flex-wrap: wrap;
+}
+```
+
+**justify-content**
+```css
+div {
+    /* 水平居中 */
+    justify-content: center;
+
+    /* 间距在弹性盒子(子级)之间 */
+    justify-content: space-between;
+
+    /* 所有地方的间距都相等 */
+    justify-content: space-evenly;
+
+    /* 间距加在子级的两侧 */
+    /* 视觉效果: 子级之间的距离是父级两头距离的2倍 */
+    justify-content: space-around;
+}
+```
+
+**align-content**
+```css
+div {
+    /* 水平居中 */
+    align-content: center;
+
+    /* 间距在弹性盒子(子级)之间 */
+    align-content: space-between;
+
+    /* 间距加在子级的两侧 */
+    /* 视觉效果: 子级之间的距离是父级两头距离的2倍 */
+   align-content: space-around;
+}
+```
+
+**align-items**
+```css
+div {
+    /* 垂直居中 */
+    align-items: center;
+
+    /* 拉伸(元素被拉伸以适应容器),默认值 */
+    align-items: stretch;
+}
+```
+
+**align-self**
+控制单个弹性盒子在侧轴的对齐方式，属性同align-items
+
+**flex**
+```css
+div {
+    /* 占用父级剩余尺寸的份数 */
+    flex: 3;
+}
+```
+
 ## Position(定位)
 
 **应用：**
@@ -419,13 +521,6 @@ div {
 ```
 
 ## 装饰
-
-### vertical-align(垂直对齐)
-适用于行内、行内块、图片之间的对齐
-- `baseline`：基线对齐(默认) 
-- `top`：顶部对齐
-- `middle`：中部对齐
-- `bottom`：底部对齐
 
 ### cursor(光标)
 - `default`：默认值，通常是箭头
@@ -538,50 +633,207 @@ div {
 }
 ```
 
-### transform(平面转换)
+### transform
 
-鼠标掠过时的动作效果
+**transform(鼠标掠过时的动作效果，谁变化加谁身上)**
 ```css
 div {
     /* 移动 */
-    transform: translate(水平移动距离, 垂直移动距离);
+    transform: translate(x, y); /* 平面移动 */
+    transform: translate3d(x, y, z); /* 空间移动 */
     transform: translate(移动距离); /* 单值表示只在x轴移动 */
     transform: translateX(移动距离); /* 在x轴移动 */
     transform: translateY(移动距离); /* 在y轴移动 */
+    transform: translateZ(移动距离); /* 在z轴移动 */
 
     /* 旋转 */
-    transform: rotate(角度); /* 角度单位:reg，如360reg */
+    transform: rotate(180deg); /* 取值0~360deg */
+    transform: rotateX(180deg);
+    transform: rotateY(180deg);
+    transform: rotateZ(180deg); /* 效果同rotate */
+    transform: rotate3d(x, y, z, 180deg); /* 自定义旋转轴，即原点到(x,y,z)的连线，x, y, z 取值0~1 */
 
     /* 缩放 */
     transform: scale(x轴缩放倍数, y轴缩放倍数);
     transform: scale(缩放倍数);
-    transform: scale(0.8, 1.2);
+    transform: scaleX(缩放倍数);
+    transform: scaleY(缩放倍数);
+    transform: scaleZ(缩放倍数);
+    transform: scale3d(x轴缩放倍数, y轴缩放倍数, z轴缩放倍数);
 
-    /* 边走边转(复合属性, rotate在后) */
+    /* 车轮效果(复合属性中rotate会改变网页元素坐标轴向，所以要写在后面) */
     transform: translate() rotate();
 }
 ```
 
-改变转换原点
+**transform-**
 ```css
 div {
-    transform-origin: 原点水平位置 原点垂直位置;
+    transform-origin: x y; /* 改变转换原点 */
+    transform-style: preserve-3d; /* 立体空间效果，添加给父级 */
 }
 ```
 
-## 杂项
+**perspective(透视)**
+配合空间转换使用，添加给父级，实现近大远小，近实远虚效果
+```css
+div {
+    perspective: 900px; /* 人眼到屏幕距离，一般取值800~1000 */
+}
+```
 
-**CSS书写顺序(效率更高)：**
-1. 定位 / 浮动 / display
-2. 盒子模型
-3. 文字属性
+### animation(动画)
 
-**元素层级关系：**
-- 不同布局方式：标准流 < 浮动 < 定位
-- 不同定位：层级相同，写在HTML下面的元素会覆盖上面的元素，可通过`z-lndex`属性(整数，取值越大越靠上)改变顺序
+**定义动画：**
+```css
+/* 两个状态 */
+@keyframes 动画名称 {
+    from {} /* 动画初始状态和盒子初始状态相同时可省略，下同 */
+    to {}
+}
+
+/* 多个状态 */
+@keyframe 动画名称 {
+    0% {}
+    10% {}
+    15% {}
+    100% {}
+}
+```
+
+**调用动画**
+```css
+div {
+    animation: 
+        动画名称 动画时长 速度曲线 延迟时间 重复次数 动画方向 执行完毕状态，
+        动画2名称 动画2时长 ...;
+    /* 不分先后，动画名称、动画时长为必须值,其他可省略 */
+    /* 重复次数: infinite(无限循环) */
+    /* 动画方向：alternate(往返执行一次) */
+    /* 执行完毕状态：backwards(初始状态，默认值); forwards(结束状态) */
+
+    /* 拆分属性 */
+    animation-name: 动画名称;
+    animation-duration: 动画时长;
+    animation-timing-function: 速度曲线; /* steps(数字) 表示逐帧动画 */
+    animation-iteration-count: infinite;
+    animation-play-state: paused; /* 暂停动画 */
+}
+```
+
+## 移动适配
+
+### rem
+1rem = 1html字号长度(px)
+
+**基本原理**
+```css
+/* 1. 不同的视口, HTML标签字号不同, 字号是视口宽度的1/10 */
+@media (width:320px) {
+    html {
+        font-size: 32px;
+    }
+}
+
+@media (width:375px) {
+    html {
+        font-size: 37.5px;
+    }
+}
 
 
-**常用**
+/* 2. 书写盒子尺寸, 单位rem */
+.box {
+    width: 5rem; /* 若视口宽为320px，5rem = 160 / 32，此时宽度为160px */
+    height: 3rem;
+    background-color: pink;
+}
+```
+
+**flexible.js**
+利用js自动设置不同视口的rem，来自淘宝开源
+```js
+(function flexible (window, document) {
+  var docEl = document.documentElement
+  var dpr = window.devicePixelRatio || 1
+
+  // adjust body font size
+  function setBodyFontSize () {
+    if (document.body) {
+      document.body.style.fontSize = (12 * dpr) + 'px'
+    }
+    else {
+      document.addEventListener('DOMContentLoaded', setBodyFontSize)
+    }
+  }
+  setBodyFontSize();
+
+  // set 1rem = viewWidth / 10
+  function setRemUnit () {
+    var rem = docEl.clientWidth / 10
+    docEl.style.fontSize = rem + 'px'
+  }
+
+  setRemUnit()
+
+  // reset rem unit on page resize
+  window.addEventListener('resize', setRemUnit)
+  window.addEventListener('pageshow', function (e) {
+    if (e.persisted) {
+      setRemUnit()
+    }
+  })
+
+  // detect 0.5px supports
+  if (dpr >= 2) {
+    var fakeBody = document.createElement('body')
+    var testElement = document.createElement('div')
+    testElement.style.border = '.5px solid transparent'
+    fakeBody.appendChild(testElement)
+    docEl.appendChild(fakeBody)
+    if (testElement.offsetHeight === 1) {
+      docEl.classList.add('hairlines')
+    }
+    docEl.removeChild(fakeBody)
+  }
+}(window, document))
+```
+
+### vm/vh
+rem升级版，视口宽高检测代码已集成到浏览器
+
+1vw=1/100视口宽度
+1vh=1/100视口高度
+
+## 响应式布局
+
+### 媒体查询
+```css
+/* 视口宽度小于等于768px， 网页背景色是粉色 */
+@media (max-width: 768px) {
+    body {
+        background-color: pink;
+    }
+}
+
+/* 视口宽度大于等于1200px， 网页背景色是skyblue */
+@media (min-width: 1200px) {
+    body {
+        background-color: skyblue;
+    }
+}
+```
+**注意：**由于CSS的层叠性，max-width要从大到小写，min-width要从小到大写。
+
+link引入CSS写法
+```html
+<!-- 视口宽度 >= 992px，one.css生效 -->
+<!-- 视口宽度 >= 1200px，two.css生效 -->
+<link rel="stylesheet" href="./one.css" media="(min-width: 992px)">
+<link rel="stylesheet" href="./two.css" media="(min-width: 1200px)">
+```
+
+## 常用
 ```css
 /* 去掉列表符号 */
 ul {
@@ -593,3 +845,21 @@ div {
     display: none;
 }
 ```
+
+**vertical-align(垂直对齐)**
+适用于行内、行内块、图片之间的对齐
+- `baseline`：基线对齐(默认) 
+- `top`：顶部对齐
+- `middle`：中部对齐
+- `bottom`：底部对齐
+
+## 其他
+
+### CSS书写顺序(效率更高)
+1. 定位 / 浮动 / display
+2. 盒子模型
+3. 文字属性
+
+### 元素层级关系
+- 不同布局方式：标准流 < 浮动 < 定位
+- 不同定位：层级相同，写在HTML下面的元素会覆盖上面的元素，可通过`z-lndex`属性(整数，取值越大越靠上)改变顺序
