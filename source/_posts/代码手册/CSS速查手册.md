@@ -844,6 +844,11 @@ ul {
 div {
     display: none;
 }
+
+/* 文本域 */
+textarea {
+    resize:none; /* 禁止拖动 */
+}
 ```
 
 **vertical-align(垂直对齐)**

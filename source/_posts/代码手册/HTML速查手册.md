@@ -234,9 +234,9 @@ th, td {
   <!-- 输入框 -->
   <input type="text" name="email" size="40" maxlength="50" placeholder="请输入文本内容">
   <input type="password" placeholder="请输入密码">
-  <!-- 单选（checked默认选中） -->
-  <input type="checkbox" checked>
-  <input type="radio" checked>
+  <!-- 复选框 -->
+  <input type="checkbox" checked> <!-- 方形，默认选中 -->
+  <input type="radio" disabled> <!-- 圆形，默认禁用 -->
     <!-- lable标签可将标签包裹的文本和input绑定，扩大选择范围，name值相同实现单选 -->
     <label>
       <input type="radio" name="sex">男
