@@ -97,7 +97,7 @@ cover: https://pblood.oss-cn-hongkong.aliyuncs.com/blog/cover/html.png
 
 ## 图片
 ```html
-<img src="URL" alt="替换文本" height="42" width="42">
+<img src="URL" title="标题" alt="替换文本" height="42" width="42">
 ```
 
 ## 音频/视频
@@ -258,8 +258,8 @@ th, td {
     <option>樱桃</option>
   </select>
 
-  <!-- 文本域（输入多行文本，cols:宽度；rows:可见行数） -->
-  <textarea name="comment" cols="20" rows="60"></textarea>
+  <!-- 文本域（输入多行文本，cols:宽度 rows:可见行数 maxlength:最大输入长度） -->
+  <textarea name="comment" cols="20" rows="60" maxlength="200"></textarea>
 
 </form>
 ```
