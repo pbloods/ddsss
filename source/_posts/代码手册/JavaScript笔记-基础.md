@@ -1,5 +1,5 @@
 ---
-title: JavaScript笔记
+title: JavaScript笔记-基础
 categories:
   - 代码手册
 tags:
@@ -18,6 +18,10 @@ date: 2022-08-28 14:27:01
 - `Error Lens` 代码错误提示
 
 ## JS基础
+
+### JS执行机制
+JS是一门单线程语言，通过异步和同步可以实现类似多线程操作。
+**同步任务**都在主线程上执行，形成一个**执行栈**；异步通过回调函数实现，**异步任务**会添加到任务队列(消息队列)，等待同步任务都执行完毕后任务队列中的任务按照**异步API**规定的顺序进入执行栈执行，首个异步任务执行完后会回到任务队列查询剩余异步任务，如存在则再次进入执行栈执行，循环往复(**事件循环**)，直到任务全部执行完毕
 
 ### 模板字符串
 ```js
@@ -46,31 +50,128 @@ if条件语句双分支简化写法，一般用来取值，返回值为满足条
 条件 ? 满足条件执行的代码 : 不满足条件执行的代码
 ```
 
-### 操作数组
-**增**
+### 字符串属性和方法
+
+**length**
+获取字符串长度
+
+**split()**
+转化为数组
 ```js
-// 将一个或多个元素添加到数组末尾，返回值为新数组长度
-arr.push(元素1, 元素2, ...)
-// 将一个或多个元素添加到数组开头，返回值为新数组长度
-arr.unshift(元素1, 元素2, ...)
+const str = 'one,two'
+// 以,为分隔符
+console.log(str.split(','))
 ```
-**删**
+
+**substring()**
+字符串截取
 ```js
-// 从数组中删除最后一个元素，返回值为该元素
-arr.pop()
-// 从数组中删除第一个元素，返回值为该元素
-arr.shift()
-// 从数组中删除连续几个元素，返回值为删除的元素数组
-arr.splice(起始位置, 删除几个元素)
-arr.splice(0, 3)
+const str = 'one,two'
+console.log(str.substring(4)) // two
+console.log(str.substring(0, 1)) // o
+```
+
+**startsWith()**
+判断是否以某字符串开头的
+```js
+const str = 'one,two'
+console.log(str.startsWith('one')) // true
+console.log(str.startsWith('two', 4)) // true
+```
+
+**includes()**
+判断是否包含某字符串
+```js
+const str = 'one,two'
+console.log(str.includes('two')) // true
+console.log(str.includes('two', 6)) // false
+```
+
+### number
+**toFixed()**
+让数字指定保留的小数位数
+```js
+const num = 10.923
+console.log(num.toFixed()) // 11
+console.log(num.toFixed(2)) // 10.92
+```
+
+**String()**
+将数字转化为字符串
+```js
+String(num)
 ```
 
 ### 函数
+
+#### 基础概念
+**函数提升**
+JS会把所有函数声明提升(不提升赋值，所以函数表达式不会被提升)到当前作用域前面，所以可以先调用后声明
+
+**动态参数**
+不设置函数形参，输入的实参全部放入arguments伪数组，遍历获取
+```js
+function getSum() {
+  let sum = 0
+  for (let i = 0; i < arguments.length; i++) {
+    sum += arguments[i]
+  }
+}
+getSum(1, 2, 3)
+```
+
+**剩余参数**
+`...`作为形式参数使用，多余的实参通过`...`以数组的形式传入`arr`
+```js
+// 在数组结构中的用法
+const [a, b, ...arr] = [1, 2, 3, 4]
+// 在函数中的用法
+function fun(a, b, ...arr) {
+  console.log(arr) // [3, 4]
+}
+fun(1, 2, 3, 4)
+```
+
+**展开运算符**
+`...`后面接数组，可以展开数组(去除`[]`)
+```js
+let arr = [1, 2, 3]
+console.log(Math.max(...arr)) // 3
+```
 
 **匿名函数**
 ```js
 let fn = function() {}
 fn()
+```
+
+**箭头函数**
+多用于简化匿名函数表达式，无动态参数，有剩余参数，没有自己的this，沿用上层作用域的this
+```js
+// 普通匿名函数
+const fn = function () {
+  console.log(123)
+}
+// 箭头函数写法
+const fn = () => {
+  console.log(123)
+}
+
+// 只有一个形参时可省略 ()
+const fn = (x) => {
+  console.log(x)
+}
+const fn = x => {
+  console.log(x)
+}
+
+// 只有一行代码时可省略 {}、return
+const fn = (x) => {
+  return x + x
+}
+const fn = x => x + x
+// 注意省略{}后如果返回的是对象时需要用()包裹起来，防止混淆
+const fn = uname => ({uname: uname})
 ```
 
 **立即执行函数**
@@ -88,41 +189,229 @@ fn()
 **递归函数**
 自己调用自己的函数
 
-**this(环境对象)**
-谁调用指向谁
+**闭包**
+内层函数调用外层函数变量形成闭包，可以实现数据私有，从外部访问函数内部变量，但可能会造成内存泄漏
+```js
+// 闭包形式 统计函数调用的次数
+function count() {
+  let i = 0
+  function fn() {
+    i++
+    console.log(`函数被调用了${i}次`)
+  }
+  return fn
+}
+const fun = count()
+```
 
-### JS执行机制
-JS是一门单线程语言，通过异步和同步可以实现类似多线程操作。
-**同步任务**都在主线程上执行，形成一个**执行栈**；异步通过回调函数实现，**异步任务**会添加到任务队列(消息队列)，等待同步任务都执行完毕后任务队列中的任务按照**异步API**规定的顺序进入执行栈执行，首个异步任务执行完后会回到任务队列查询剩余异步任务，如存在则再次进入执行栈执行，循环往复(**事件循环**)，直到任务全部执行完毕
 
-### 操作对象
+
+### 数组
+
+#### 操作数组
+
+**增**
+```js
+// 将一个或多个元素添加到数组末尾，返回值为新数组长度
+arr.push(元素1, 元素2, ...)
+// 将一个或多个元素添加到数组开头，返回值为新数组长度
+arr.unshift(元素1, 元素2, ...)
+```
+
+**删**
+```js
+// 从数组中删除最后一个元素，返回值为该元素
+arr.pop()
+// 从数组中删除第一个元素，返回值为该元素
+arr.shift()
+// 从数组中删除连续几个元素，返回值为删除的元素数组
+arr.splice(起始位置, 删除几个元素)
+arr.splice(0, 3)
+```
+
+**遍历**
+`forEach()` 无返回值
+```js
+arr.forEach(function(item, index) { /* … */ })
+```
+
+**迭代**
+`map()` 返回新数组，常用于处理数据
+```js
+arr.map(function(item, index) { return item + 20 })
+```
+
+**筛选**
+`filter` 返回满足条件的数组
+```js
+arr.filter(function(item, index) { return item >= 20 })
+```
+
+**查找**
+`find()` 方法返回数组中满足提供的测试函数的第一个元素的值。否则返回 undefined。
+```js
+const arr = [
+  {
+    name: '小米',
+    price: 1999
+  },
+  {
+    name: '华为',
+    price: 3999
+  },
+]
+arr.find(function(item) { return item.name === '小米'})
+```
+
+**累加器**
+`reduce()`
+```js
+arr.reduce(function(累计值, 当前元素){}, [起始值])
+arr.reduce(function (prev, item) {
+  return prev + item
+}, 0)
+
+const re = arr.reduce((prev, item) => prev + item, 0)
+```
+
+**拼接**
+`join()` 将数组转化成字符串拼接起来
+```js
+const elements = ['Fire', 'Air', 'Water'];
+
+console.log(elements.join()); // expected output: "Fire,Air,Water"
+
+console.log(elements.join('')); // expected output: "FireAirWater"
+
+console.log(elements.join('-')); // expected output: "Fire-Air-Water"
+```
+
+**伪数组转为真数组**
+t通过内置结构函数 Array 的 `from()`
+```js
+Array.from(arr)
+```
+
+#### 数组解构
+将数组的单元值快速批量赋值给一系列变量
+```js
+// 一维数组解构
+const [a, b, c, d] = [1, 2, 3, 4]
+// 二维数组解构
+const [a, b, [c, d]] = [1, 2, [3, 4]]
+
+// 交换变量的值
+let a = 1
+let b = 2; // 此处需要用;隔开，否则JS会将以数组开头的代码提到这一行，导致报错
+[a, b] = [b, a]
+
+// 防止 undefined 传递
+const [a = 0, b = 0] = [1, 2]
+// 单元值少时用剩余函数接收多余值
+const [a, b, ...arr] = [1, 2, 3, 4]
+// 忽略某些参数
+const [a, , c, d] = [1, 2, 3, 4]
+```
+
+### 对象
+
+#### 创建对象
+```js
+// 1. 通过字面量创建
+const obj = {
+  name: '佩奇'
+}
+
+// 2. 利用 new Object 创建
+let obj = new Object()
+obj.name = '佩奇'
+// 等价于
+let obj = new Object({ name: '佩奇' })
+
+// 3. 通过构造函数(函数名约定大写字母开头)批量创建类似对象
+function Pig(name, age) {
+    this.name = name
+    this.age = age
+}
+// 通过 new 调用构造函数的方法称为实例化，返回值为实例对象
+const peiqi = new Pig('佩奇', 8) 
+const qiaozhi = new Pig('乔治', 7)
+// 实例对象的属性和方法叫实例成员，构造函数的属性和方法叫静态成员
+Pig.weight = 200
+Pig.eat = function() {
+  console.log('吃一大盆')
+}
+```
+
+#### 操作对象
 **查**
 ```js
 console.log(obj.属性)
 console.log(obj['属性'])
 console.log(obj.方法())
 ```
+
 **增**
 ```js
 // 同改，name不存在时会新增一个
 obj.name = 新值
+
+// 通过构造函数 Object 追加，可批量追加
+Object.assign(obj, { name = 新值 })
 ```
+
 **删**
 ```js
 delete obj.name
 ```
 
-**遍历对象(for/in)**
+**遍历对象()**
 ```js
+// 1. for/in
 for (let k in obj) {
   console.log(k) /* 属性名(字符串) */
   console.log(obj[k]) /* 属性值 */
 }
+
+// 2. 通过构造函数 Object
+const o = { uname: 'pink', age: 18 }
+// 获得所有的属性名
+console.log(Object.keys(o))  //返回数组['uname', 'age']
+// 获得所有的属性值
+console.log(Object.values(o))  //  ['pink', 18]
 ```
 
-### 内置对象
+#### 对象解构
+将对象的属性和方法快速批量赋值给一系列变量，形参必须等于属性或者方法名
+```js
+const {uname, age} = {uname: '张三', age: 18}
+// 变量冲突时重新定义变量名
+const {uname: username, age} = {uname: '张三', age: 18}
+```
 
-#### Math对象
+**数组对象解构**
+```js
+const [{uname, age}] = [{uname: '张三', age: 18}]
+```
+
+**多级对象解构**
+```js
+const person = [
+  {
+    name: '佩奇',
+    family: {
+      mother: '猪妈妈',
+      father: '猪爸爸',
+      sister: '乔治'
+    },
+    age: 6
+  }
+]
+const [{ name, family: { mother, father, sister } }] = person
+```
+#### 内置对象
+
+##### Math对象
 ```js
 // 生成 min - max 之间的一个随机数
 function getRandom(min, max) {
@@ -130,7 +419,7 @@ function getRandom(min, max) {
 }
 ```
 
-#### 时间对象
+##### 时间对象
 **获取时间**
 ```js
 // 获取 2022/06/14 19:50:36 格式时间数据
