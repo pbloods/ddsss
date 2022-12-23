@@ -183,6 +183,27 @@ const fn = uname => ({uname: uname})
 (function () { console.log('立即执行函数') }());
 ```
 
+**this**
+普通函数`this`指向函数调用者，箭头函数沿用上层`this`
+
+改变`this`指向
+```js
+const obj = {
+  uname: 'pink'
+}
+function fn(x, y) {
+  console.log(this) // window
+  console.log(x + y)
+}
+// call() 返回值为函数的返回值
+fn.call(obj, 1, 2)
+// apply() 返回值为函数的返回值
+fn.apply(obj, [1, 2])
+// bind() 不会调用函数，返回值为修改了yhis指向的新函数
+const fun = fn.bind(obj, [1, 2])
+fun()
+```
+
 **回调函数**
 被当参数的函数
 
@@ -204,7 +225,73 @@ function count() {
 const fun = count()
 ```
 
+**节流**
+连续触发事件但是在 n 秒中只执行一次函数
+```js
+const box = document.querySelector('.box')
+let i = 1  // 让这个变量++
+// 鼠标移动函数
+function mouseMove() {
+  box.innerHTML = ++i
+  // 如果里面存在大量操作 dom 的情况，可能会卡顿
+}
+// console.log(mouseMove)
+// 节流函数 throttle 
+function throttle(fn, t) {
+  // 起始时间
+  let startTime = 0
+  return function () {
+    // 得到当前的时间
+    let now = Date.now()
+    // 判断如果大于等于 500 采取调用函数
+    if (now - startTime >= t) {
+      // 调用函数
+      fn()
+      // 起始的时间 = 现在的时间   写在调用函数的下面 
+      startTime = now
+    }
+  }
+}
+box.addEventListener('mousemove', throttle(mouseMove, 500))
 
+// lodash
+box.addEventListener('mousemove', _.throttle(mouseMove, 500))
+```
+
+**防抖**
+在 n 秒内又触发了事件，则会重新计算函数执行时间
+```js
+const box = document.querySelector('.box')
+let i = 1  // 让这个变量++
+// 鼠标移动函数
+function mouseMove() {
+  box.innerHTML = ++i
+  // 如果里面存在大量操作 dom 的情况，可能会卡顿
+}
+// 防抖函数
+function debounce(fn, t) {
+  let timeId
+  return function () {
+    // 如果有定时器就清除
+    if (timeId) clearTimeout(timeId)
+    // 开启定时器 200
+    timeId = setTimeout(function () {
+      fn()
+    }, t)
+  }
+}
+// box.addEventListener('mousemove', mouseMove)
+box.addEventListener('mousemove', debounce(mouseMove, 200))
+
+// lodash
+box.addEventListener('mousemove', _.debounce(mouseMove, 200))
+```
+
+### 杂项
+```js
+// 禁用鼠标右键(问卷星)
+document.oncontextmenu = document.ondragstart = document.onselectstart = function () { return !1 }
+```
 
 ### 数组
 
@@ -227,6 +314,25 @@ arr.shift()
 // 从数组中删除连续几个元素，返回值为删除的元素数组
 arr.splice(起始位置, 删除几个元素)
 arr.splice(0, 3)
+```
+
+**拷贝**
+```js
+const arr = [
+  1,
+  2,
+  {
+    name: 'pig'
+  }
+];
+// 直接赋值（只拷贝arr的地址，共用内存）
+const newArr = arr
+// 浅拷贝（简单数据类型拷贝值，引用数据类型拷贝地址）
+// 方法一: 利用展开函数
+const newArr = [...arr]
+// 方法2：concat()
+let newArr = []
+newArr = newArr.concat(arr)
 ```
 
 **遍历**
@@ -313,37 +419,86 @@ const [a, b, ...arr] = [1, 2, 3, 4]
 const [a, , c, d] = [1, 2, 3, 4]
 ```
 
+#### 自定义方法
+通过原型对象prototype
+```js
+let arr = [1, 2, 3]
+Array..max = function () {
+  return Math.max(...this)
+}
+console.log(arr.max()) // 3
+```
+
 ### 对象
 
 #### 创建对象
+1. 通过字面量创建
 ```js
-// 1. 通过字面量创建
 const obj = {
   name: '佩奇'
 }
+```
 
-// 2. 利用 new Object 创建
+2. 利用 new Object 创建
+```js
 let obj = new Object()
 obj.name = '佩奇'
 // 等价于
 let obj = new Object({ name: '佩奇' })
+```
 
-// 3. 通过构造函数(函数名约定大写字母开头)批量创建类似对象
+3. 通过**构造函数**批量创建类似对象
+```js
+// 1.创建一个构造函数 Pig (约定首字母大写)
 function Pig(name, age) {
     this.name = name
     this.age = age
 }
-// 通过 new 调用构造函数的方法称为实例化，返回值为实例对象
-const peiqi = new Pig('佩奇', 8) 
-const qiaozhi = new Pig('乔治', 7)
-// 实例对象的属性和方法叫实例成员，构造函数的属性和方法叫静态成员
+// 静态成员（构造函数的属性和方法）
 Pig.weight = 200
 Pig.eat = function() {
   console.log('吃一大盆')
 }
+// 原型对象(prototype) （公共方法或者属性通过 protype 创建，可以实现内存复用，减少内存的浪费
+Pig.prototype.sing = function () {}
+Pig.prototype = {
+  // constructor: 原型对象的属性，指向其构造函数
+  // 通过赋值对象批量创建公共方法或者属性会使 constructor 丢失，需重新指回
+  constructor: Pig,
+  sing: function () {},
+  dance: function () {}
+}
+// 原型继承(批量创建公共方法或者属性的简写形式)
+const animal = {
+    head: 1,
+    sing: function () {}
+}
+Pig.prototype = animal
+Pig.prototype.constructor = Pig
+// 原型继承进阶，使用构造函数解决继承时造成的共用原型对象问题
+function Animal() {
+    this.head = 1
+    this.sing = function () {}
+}
+Pig.prototype = new Animal()
+Pig.prototype.constructor = Pig
+// 2.实例化（通过 new 调用构造函数的方法称为实例化，返回值为实例对象）
+// 实例成员（实例对象的属性和方法）
+const peiqi = new Pig('佩奇', 8) 
+const qiaozhi = new Pig('乔治', 7)
+
+
+// 对象原型(__proto__) 凡对象都有 __proto__，指向原型对象(prototype)
+// 实例对象的 __proto__ 指向其构造函数的原型对象，而构造函数原型对象的 __proto__ 指向上级 Object 的原型对象(prototype)
+// 原型链(查找规则)：原型对象构成的链状关系
+console.log(peiqi.__proto__ === Pig.prototype) // true
+// instanceof 判断前者是否在后者的原型链上(前者是否属于后者)
+console.log(peiqi instanceof Object) // true
+console.log(peiqi instanceof Array) // false
 ```
 
 #### 操作对象
+
 **查**
 ```js
 console.log(obj.属性)
@@ -365,7 +520,7 @@ Object.assign(obj, { name = 新值 })
 delete obj.name
 ```
 
-**遍历对象()**
+**遍历对象**
 ```js
 // 1. for/in
 for (let k in obj) {
@@ -379,6 +534,53 @@ const o = { uname: 'pink', age: 18 }
 console.log(Object.keys(o))  //返回数组['uname', 'age']
 // 获得所有的属性值
 console.log(Object.values(o))  //  ['pink', 18]
+```
+
+**拷贝对象**
+```js
+const obj = {
+  uname: 'pink',
+  age: 18,
+  family: {
+    baby: '小pink'
+  }
+}
+// 直接赋值（只拷贝obj的地址，共用内存）
+const o = obj
+// 浅拷贝（简单数据类型拷贝值，引用数据类型拷贝地址）
+// 方法一：利用展开函数
+const o = { ...obj }
+// 方法二：assign()
+const o = {}
+Object.assign(o, obj)
+// 深拷贝
+// 方法一：手敲(利用递归)
+function deepCopy(newObj, oldObj) {
+  debugger
+  for (let k in oldObj) {
+    // 处理数组的问题  一定先写数组 在写 对象 不能颠倒
+    if (oldObj[k] instanceof Array) {
+      newObj[k] = []
+      //  newObj[k] 接收 []  hobby
+      //  oldObj[k]   ['乒乓球', '足球']
+      deepCopy(newObj[k], oldObj[k])
+    } else if (oldObj[k] instanceof Object) {
+      newObj[k] = {}
+      deepCopy(newObj[k], oldObj[k])
+    }
+    else {
+      //  k  属性名 uname age    oldObj[k]  属性值  18
+      // newObj[k]  === o.uname  给新对象添加属性
+      newObj[k] = oldObj[k]
+    }
+  }
+}
+deepCopy(o, obj) // 函数调用  两个参数 o 新对象  obj 旧对象
+// 方法二：利用 lodash 库(https://www.lodashjs.com/)
+<script src="lodash.js"></script>
+const o = _.cloneDeep(obj)
+// 方法三：JSON中转转化
+const o = JSON.parse(JSON.stringify(obj))
 ```
 
 #### 对象解构
@@ -409,6 +611,7 @@ const person = [
 ]
 const [{ name, family: { mother, father, sister } }] = person
 ```
+
 #### 内置对象
 
 ##### Math对象
@@ -463,13 +666,14 @@ let s = parseInt(count % 60);
 s = s < 10 ? '0' + s : s
 ```
 
+
 ## Web APIs
 
 ### DOM(文档对象模型)
 
 #### 获取DOM元素、修改属性
 
-**获取DOM对象**
+**获取元素**
 ```js
 // 通过CSS选择器获取第一个匹配的元素
 document.querySelector('CSS选择器')
@@ -477,22 +681,22 @@ document.querySelector('CSS选择器')
 document.querySelectorAll('CSS选择器')
 ```
 
-**设置/修改DOM元素内容**
+**设置/修改元素内容**
 ```js
-// 将文本内容(支持标签)追加到</body>前
+// 将文本内容(支持标签)写到document的<body>里
 document.write('')
 
-// 将文本内容(只支持文本)添加/更新到任意标签位置
+// 将文本内容(只支持文本)更新到任意标签位置
 元素.innerText = 
-// 将文本内容(支持标签、变量)添加/更新到任意标签位置
+// 将文本内容(支持标签、变量)更新到任意标签位置
 元素.innerHTML = 
+
+// 修改元素value属性
+元素.value =
 
 // 禁用元素
 元素.disabled = true
 ```
-
-**设置/修改DOM元素属性**
-`对象.属性 = 值`
 
 **修改样式属性**
 ```js
@@ -511,10 +715,10 @@ box.style.backgroundColor = 'red'
 元素.classList.contains('类名') /* 判断元素是否有类(返回布尔值) */
 ```
 
-**修改表单属性**
+**设置/修改元素属性**
 ```js
-元素.value = '用户名'
-元素.type = 'password'
+// 不能设置/修改自定义属性
+对象.属性 = '值'
 ```
 
 **自定义属性**
@@ -567,6 +771,13 @@ box.style.backgroundColor = 'red'
 ##### 事件流
 - 捕获
 - 冒泡
+
+```js
+// 阻止默认事件
+事件对象.preventDefault()
+// 阻止冒泡
+事件对象.stopPropagation()
+```
 
 ##### 事件委托
 利用事件冒泡，给父元素添加事件，子元素可以触发，通过`事件对象.target`可以获得需要触发的子元素
@@ -624,7 +835,7 @@ document.createElement('标签名')
 - `scrollTop`/`scrollLeft` 被页面卷去的头部与左侧长度(number，可修改)
 
 **offset**
-- `offsetWidth`/`offsetHeight` 元素盒子总宽高
+- `offsetWidth`/`offsetHeight` 元素盒子总宽高, 不包含margin
 - `offsetTop`/`offsetLeft` 元素距离自己定位父级元素(没有则以文档左上角为准)的上、左距离(number，不可修改)
 
 **client**
