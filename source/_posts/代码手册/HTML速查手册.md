@@ -34,6 +34,9 @@ cover: https://pblood.oss-cn-hongkong.aliyuncs.com/blog/cover/html.png
 </html>
 ```
 
+**VsCode插件：**
+- `Open in Browser` 给鼠标右键添加在浏览器打开快捷键
+
 ## 基本的标签
 ```html
 <h1>最大的标题</h1>

@@ -16,7 +16,6 @@ date: 2022-01-22 14:27:01
 - [CSS参考手册 - 简单教程](https://www.twle.cn/l/yufei/cssref/css-ref-reference.html)
 
 **VsCode插件：**
-- `Open in Browser` 给鼠标右键添加在浏览器打开快捷键
 - `EasyLESS` CSS 预处理工具。简化CSS语法，丰富功能，自动生成CSS文件，详见[lesscss.org](https://lesscss.org/)
 - `One Dark Pro` 一款VsCode主题
 
@@ -528,7 +527,7 @@ div {
 - `text`：工字型，提示可以输入
 - `move`：十字光标，提示可以移动
 
-### border-radius(边框圆角)*
+### border-radius(边框圆角)
 左上角开始，顺时针赋值，少值看对角
 ```css
 div {
@@ -536,6 +535,16 @@ div {
     border-radius: 10px, 40px;
     border-radius: 10px, 40px, 60px;
     border-radius: 10px, 40px, 60px, 80px;
+}
+```
+
+### border-image(边框图片)
+```css
+.box {
+    border-image-source: url(image.jpg);
+    border-image-slice: 7 12 14 5; /* 九宫格分割图片 */
+    border-image-width: 5% 2em 10% auto; /* 边框图片宽度，不挤压内容 */
+    border-image-repeat: stretch; /* 默认值。定义图片如何填充边框(stretch:拉伸 repeat:平铺 round:铺满) */
 }
 ```
 

@@ -671,7 +671,7 @@ s = s < 10 ? '0' + s : s
 
 ### DOM(文档对象模型)
 
-#### 获取DOM元素、修改属性
+#### 元素
 
 **获取元素**
 ```js
@@ -679,6 +679,14 @@ s = s < 10 ? '0' + s : s
 document.querySelector('CSS选择器')
 // 通过CSS选择器获取所有匹配的元素(返回伪数组)
 document.querySelectorAll('CSS选择器')
+```
+**通过节点关系获取元素**
+```js
+元素.parentNode /* 最近一级父节点，没有则返回null */
+元素.children /* 所有子节点(仅元素节点，伪数组) */
+元素.childNodes /* 所有子节点(元素节点、文本节点、注释节点等，伪数组) */
+元素.nextElementSibiling /* 下一个兄弟节点 */
+元素.previousElementSibiling /* 上一个兄弟节点 */
 ```
 
 **设置/修改元素内容**
@@ -698,7 +706,28 @@ document.write('')
 元素.disabled = true
 ```
 
-**修改样式属性**
+**创建/添加元素**
+```js
+// 1.创建一个新的标签节点
+document.createElement('标签名')
+// 克隆节点(true:克隆时包含后代节点, false:只克隆元素本身)
+元素.cloneNode(布尔值)
+
+// 2.插入节点
+// 追加节点
+父元素.appendChild(子元素)
+// 插入节点
+父元素.insertBefore(子元素, 插入位置下方的兄弟元素)
+```
+
+**删除节点**
+```js
+父元素.removeChild(要删除的元素)
+```
+
+#### 样式/属性
+
+**修改样式属性/类名**
 ```js
 // 修改(添加)样式属性(通过style，只能获取和设置行内样式)
 元素.style.样式属性 = 值
@@ -784,51 +813,9 @@ box.style.backgroundColor = 'red'
 - `事件对象.target.id` 子元素id
 - `事件对象.target.tagName` 子元素标签名
 
-#### DOM节点
-- **元素节点**
-- 属性节点
-- 文字节点
 
-**查找节点**
-```js
-// 获取最近一级父节点，没有则返回null
-元素.parentNode
 
-// 查找所有子节点(仅元素节点，伪数组)
-元素.children
-// 查找所有子节点(元素节点、文本节点、注释节点等，伪数组)
-元素.childNodes
-
-// 下一个兄弟节点
-元素.nextElementSibiling
-// 上一个兄弟节点
-元素.previousElementSibiling
-```
-
-**增加节点**
-```js
-// 1.创建一个新的标签节点
-document.createElement('标签名')
-
-// 2.插入节点
-// 追加节点
-父元素.appendChild(子元素)
-// 插入节点
-父元素.insertBefore(子元素, 插入位置下方的兄弟元素)
-```
-
-**克隆节点**
-```js
-// true:克隆时包含后代节点, false:只克隆元素本身。默认false
-元素.cloneNode(布尔值)
-```
-
-**删除节点**
-```js
-父元素.removeChild(要删除的元素)
-```
-
-#### 网页特效
+#### 获取尺寸
 
 **scroll**
 - `scrollWidth`/`scrollHeight` 内容宽高，包括不可见部分
@@ -840,7 +827,7 @@ document.createElement('标签名')
 
 **client**
 - `clientWidth`/`clientHeight` 元素可见宽高，不包括边框、滚动条等
-- `clientTop`/`clientLeft` 上边框和左边框宽度度(number，不可修改)
+- `clientTop`/`clientLeft` 上边框和左边框宽度(number，不可修改)
 
 ### BOM(浏览器对象模型)
 
@@ -923,3 +910,21 @@ str.replace(/正则/g, '替换文本')
 - [正则表达式 - JavaScript | MDN](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Guide/Regular_Expressions)
 - [开源中国在线正则测试工具](https://tool.oschina.net/regex)
 - [正则表达式在线测试 | 菜鸟工具](https://c.runoob.com/front-end/854/)
+
+## 组件库
+
+### ECharts
+一个基于 JavaScript 的开源可视化图表库。[ECharts官网](https://echarts.apache.org/zh/index.html)
+
+**常用配置项**
+- `title`：标题组件   
+- `tooltip`：提示框组件
+- `legend`：图例组件
+- `toolbox`: 工具栏
+- `grid`：直角坐标系内绘图网格
+- `xAxis`：直角坐标系 grid 中的 x 轴
+- `yAxis`：直角坐标系 grid 中的 y 轴
+- `series`: 系列列表。
+- `color`：调色盘颜色列表
+
+![20221225124632](https://pblood.oss-cn-hongkong.aliyuncs.com/blog/article/20221225124632.png)
