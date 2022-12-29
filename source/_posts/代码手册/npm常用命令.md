@@ -40,6 +40,9 @@ npm install # 安装package.json定义好的模块，简写 npm i
 # 安装包指定模块
 npm i <ModuleName>
 
+# 安装指定版本模块
+npm i <ModuleName>@2.2.2
+
 # 全局安装
 npm i <ModuleName> -g 
 

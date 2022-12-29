@@ -9,8 +9,6 @@ top_img: false
 date: 2022-01-21 11:20:30
 ---
 
-# 前言
-
 > SQL (Structured Query Language:结构化查询语言) 是用于管理关系数据库管理系统（RDBMS）。 SQL 的范围包括数据插入、查询、更新和删除，数据库模式创建和修改，以及数据访问控制。
 
 ## SQL分类

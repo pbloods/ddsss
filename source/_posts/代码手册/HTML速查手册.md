@@ -232,7 +232,7 @@ th, td {
 
 ## 表单
 ```html
-<form action="demo_form.php" method="post/get">
+<form action="demo_form.php" method="post/get" target="_blank/_self">
 
   <!-- 输入框 -->
   <input type="text" name="email" size="40" maxlength="50" placeholder="请输入文本内容">

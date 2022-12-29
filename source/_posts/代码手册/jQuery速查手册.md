@@ -153,6 +153,7 @@ $(".box").removeAttr("属性名")
 **内置事件**
 - `change()`
 - `hover([over,]out)`
+- `submit` 表单提交事件
 
 **绑定与解绑**
 ```js
@@ -273,6 +274,257 @@ $('.box').position().left
 $('.box').scrollTop()
 // 被页面卷去的左侧
 $('.box').scrollLeft()
+```
+
+## jQuery中的Ajax
+
+### $.get
+`$.get(url, [data], [callback])`
+**示例**
+```js
+// 发起不带参数的GET请求
+$(function () {
+    $('#btnGET').on('click', function () {
+    $.get('http://www.liulongbin.top:3006/api/getbooks', function (res) {
+        console.log(res)
+    })
+    })
+})
+// 发起单参数的GET请求
+$(function () {
+    $('#btnGETINFO').on('click', function () {
+    $.get('http://www.liulongbin.top:3006/api/getbooks', { id: 1 }, function (res) {
+        console.log(res)
+    })
+    })
+})
+```
+**JSONP**
+```js
+$(function () {
+  // 发起JSONP的请求
+  $.ajax({
+    url: 'http://ajax.frontend.itheima.net:3006/api/jsonp?name=zs&age=20',
+    // 代表我们要发起JSONP的数据请求
+    dataType: 'jsonp',
+    jsonp: 'callback',
+    jsonpCallback: 'abc', /* 回调函数名称 */
+    success: function (res) {
+      console.log(res)
+    }
+  })
+})
+```
+
+### $.post()
+`$.post(url, [data], [callback])`
+**示例**
+```js
+$(function () {
+    $('#btnPOST').on('click', function () {
+    $.post('http://www.liulongbin.top:3006/api/addbook', { bookname: '水浒传', author: '施耐庵', publisher: '天津图书出版社' }, function (res) {
+        console.log(res)
+    })
+    })
+})
+```
+
+### $.ajax()
+```js
+$.ajax({
+   type: '', // 请求的方式，例如 GET 或 POST
+   url: '',  // 请求的 URL 地址
+   data: { },// 这次请求要携带的数据
+   success: function(res) { } // 请求成功之后的回调函数
+})
+```
+**示例**
+```js
+// 发起GET请求
+$(function () {
+    $('#btnGET').on('click', function () {
+    $.ajax({
+        type: 'GET',
+        url: 'http://www.liulongbin.top:3006/api/getbooks',
+        data: {
+        id: 1
+        },
+        success: function (res) {
+        console.log(res)
+        }
+    })
+    })
+})
+// 发起POST请求
+$(function () {
+    $('#btnPOST').on('click', function () {
+    $.ajax({
+        type: 'POST',
+        url: 'http://www.liulongbin.top:3006/api/addbook',
+        data: {
+        bookname: '史记',
+        author: '司马迁',
+        publisher: '上海图书出版社'
+        },
+        success: function (res) {
+        console.log(res)
+        }
+    })
+    })
+})
+```
+
+### 提交表单
+```js
+<form action="/login" id="f1">
+  <input type="text" name="user_name" />
+  <input type="password" name="password" />
+  <button type="submit">提交</button>
+</form>
+
+// 1.阻止表单默认提交和跳转行为，仅采集数据
+$(function () {
+  $('#f1').on('submit', function (e) {  
+    alert('监听到了表单的提交事件2')
+    e.preventDefault()
+    // 通过serialize()快速获取带有name属性的表单数据
+    let data = $('#f1').serialize()
+    console.log(data)
+  })
+})
+```
+
+### 上传文件
+```js
+$(function () {
+  // 监听到Ajax请求被发起了
+  $(document).ajaxStart(function () {
+    $('#loading').show()
+  })
+
+  // 监听到 Ajax 完成的事件
+  $(document).ajaxStop(function () {
+    $('#loading').hide()
+  })
+
+  $('#btnUpload').on('click', function () {
+    var files = $('#file1')[0].files
+    if (files.length <= 0) {
+      return alert('请选择文件后再上传！')
+    }
+
+    var fd = new FormData()
+    fd.append('avatar', files[0])
+
+    // 发起 jQuery 的 Ajax 请求，上传文件
+    $.ajax({
+      method: 'POST',
+      url: 'http://www.liulongbin.top:3006/api/upload/avatar',
+      data: fd,
+      processData: false,
+      contentType: false,
+      success: function (res) {
+        console.log(res)
+      }
+    })
+  })
+})
+```
+
+#### 通过模板引擎渲染数据
+art-template
+```html
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <!-- 1. 导入模板引擎 -->
+  <!-- 在 window 全局，多一个函数，叫做 template('模板的Id', 需要渲染的数据对象) -->
+  <script src="./lib/template-web.js"></script>
+  <script src="./lib/jquery.js"></script>
+</head>
+
+<body>
+
+  <div id="container"></div>
+
+  <!-- 3. 定义模板 -->
+  <!-- 3.1 模板的 HTML 结构，必须定义到 script 中 -->
+  <script type="text/html" id="tpl-user">
+    <h1>{{name}}    ------    {{age}}</h1>
+    {{@ test}}
+
+    <div>
+      {{if flag === 0}}
+      flag的值是0
+      {{else if flag === 1}}
+      flag的值是1
+      {{/if}}
+    </div>
+
+    <ul>
+      {{each hobby}}
+      <li>索引是:{{$index}}，循环项是:{{$value}}</li>
+      {{/each}}
+    </ul>
+
+    <h3>{{regTime | dateFormat}}</h3>
+  </script>
+
+  <script>
+    // 定义处理时间的过滤器
+    template.defaults.imports.dateFormat = function (date) {
+      var y = date.getFullYear()
+      var m = date.getMonth() + 1
+      var d = date.getDate()
+
+      return y + '-' + m + '-' + d
+    }
+
+
+    // 2. 定义需要渲染的数据
+    var data = { name: 'zs', age: 20, test: '<h3>测试原文输出</h3>', flag: 1, hobby: ['吃饭', '睡觉', '写代码'], regTime: new Date() }
+
+    // 4. 调用 template 函数
+    var htmlStr = template('tpl-user', data)
+    console.log(htmlStr)
+    // 5. 渲染HTML结构
+    $('#container').html(htmlStr)
+  </script>
+</body>
+
+</html>
+```
+
+##### art-template标准语法
+```js
+// 标准输出
+{{value}}
+{{obj.key}}
+{{obj['key']}}
+{{a ? b : c}}
+{{a || b}}
+{{a + b}}
+
+// 原文输出
+{{@ value }}
+
+// 条件输出
+{{if value}} 按需输出的内容 {{/if}}
+{{if v1}} 按需输出的内容 {{else if v2}} 按需输出的内容 {{/if}}
+
+// 循环输出
+{{each arr}}
+    {{$index}} {{$value}}
+{{/each}}
+
+// 过滤器
+template.defaults.imports.filterName = function(value){/*return处理的结果*/}
+{{value | filterName}}
 ```
 
 ## 插件

@@ -15,7 +15,7 @@ date: 2022-02-18 10:43:57
 - [Git在线学习_Gitee](https://oschina.gitee.io/learn-git-branching/)
 - [Git官方文档](https://git-scm.com/docs/)
 
-# 基本概念
+## 基本概念
 
 `Git`是一个开源的分布式版本控制系统，用于敏捷高效地处理任何或小或大的项目工作中，在项目的开发进程中起着至关重要的作用。
 
@@ -27,7 +27,7 @@ date: 2022-02-18 10:43:57
 下面这个图展示了工作区、版本库中的暂存区和版本库之间的关系：
 ![img](https://www.runoob.com/wp-content/uploads/2015/02/1352126739_7909.jpg)
 
-# Git 配置
+## Git 配置
 
 Git 的配置文件为`.git/config`，当前仓库配置文件在当前目录下，全局配置文件在用户主目录下
 
@@ -71,9 +71,30 @@ git config --global https.proxy 'https://127.0.0.2:7890'
         proxy = https://127.0.0.2:7890
 ```
 
-# 本地操作
+**.gitignore**
+```shell
+# 忽略 index.css 这个文件
+index.css
 
-## 新建 Git 版本库
+# 忽略所有 .a 文件
+*.a
+
+# 但跟踪所有的 lib.a，即使前面已经忽略
+!lib.a
+
+# 只忽略当前目录下的 TODO 文件
+/TODO
+
+# 忽略任何目录下名为 build 的文件夹
+build/
+
+# 忽略 doc 及其子目录下所有 pdf 文件
+doc/**/*.pdf
+```
+
+## 本地操作
+
+### 新建 Git 版本库
 
 ```bash
 # 在当前目录新建一个 Git 版本库，-b指定分支为master
@@ -92,11 +113,11 @@ git clone -b [branch] [url] [dir]
 git clone --depth=1 [url] [dir]
 ```
 
-## 查看信息
+### 查看信息
 
 版本库、暂存区、工作区内容全部一致将不会返回任何信息
 
-### 查看文件状态
+#### 查看文件状态
 
 ```shell
 # 查看文件状态
@@ -116,7 +137,7 @@ A  lib/git.rb # 新添加到暂存区，未提交
 M  lib/simplegit.rb # 已修改，已暂存 （M的位置靠左，绿色）
 ?? LICENSE.txt # 新添加，未跟踪
 ```
-### 查看版本历史
+#### 查看版本历史
 
 ```shell
 # 查看当前分支的HEAD之前的commitID和版本历史
@@ -128,7 +149,7 @@ git log
 git reflog
 ```
 
-## 比较
+### 比较
 
 ```bash
 # 显示暂存区和工作区的差异
@@ -147,7 +168,7 @@ git diff HEAD
 git diff [commitId1] [commitId2]
 ```
 
-## 添加工作区文件到暂存区
+### 添加工作区文件到暂存区
 
 ```bash
 # 添加指定文件到暂存区
@@ -160,7 +181,7 @@ git add ./
 git add -A
 ```
 
-## 提交暂存区文件到版本库
+### 提交暂存区文件到版本库
 
 ```bash
 # 提交暂存区到仓库区
@@ -173,7 +194,7 @@ git commit [file1] [file2] ... -m [message]
 git commit --amend -m [message]
 ```
 
-## 删除
+### 删除
 
 ```bash
 # 删除工作区文件，并且将这次删除放入暂存区
@@ -182,11 +203,11 @@ git rm [file1] [file2] ...
 # 从暂存区删除文件夹/文件
 git rm --cache [dir]/[file]
 
-# 停止追踪指定文件，但该文件会保留在工作区
+# 只删除版本库文件
 git rm --cached [file]
 ```
 
-## 恢复
+### 恢复
 
 **git reset**（将HEAD向后移动，用来恢复指定commit）
 
@@ -227,9 +248,9 @@ git checkout .
 git checkout [commit] [file]
 ```
 
-## 分支
+### 分支
 
-### 查看分支
+#### 查看分支
 
 ```bash
 # 查看本地分支
@@ -242,7 +263,7 @@ git branch -r
 git branch -a
 ```
 
-### 创建分支
+#### 创建分支
 
 ```bash
 # 新建一个分支，但依然停留在当前分支
@@ -255,7 +276,7 @@ git checkout -b [branch]
 git branch --track [branch] [remote-branch]
 ```
 
-### 切换分支
+#### 切换分支
 ```bash
 # 切换到指定分支，并更新工作区(会丢失当前分支修改)
 git checkout [branch-name]
@@ -264,7 +285,7 @@ git checkout [branch-name]
 git checkout -
 ```
 
-### 合并分支
+#### 合并分支
 ```bash
 # 合并指定分支到当前分支
 git merge [branch]
@@ -276,7 +297,7 @@ git branch --merged
 git branch --no-merged
 ```
 
-### 删除分支
+#### 删除分支
 ```bash
 # 删除本地分支(如果分支为未合并状态，则不允许删除)
 git branch -d [branch-name]
@@ -288,17 +309,17 @@ git branch -D [branch-name]
 git remote prune [shortname]
 ```
 
-## 标签
+### 标签
 有的时候，我们希望给某一个特定的历史提交打上一些标签
 
-### 新建标签
+#### 新建标签
 
 ```bash
 # 新建一个tag在当前commit
 git tag [tag] [HEAD]
 ```
 
-### 查看 tag
+#### 查看 tag
 
 ```bash
 # 列出所有tag
@@ -308,7 +329,7 @@ git tag
 git show [tag]
 ```
 
-### 删除 tag
+#### 删除 tag
 
 ```bash
 # 删除本地tag
@@ -318,7 +339,7 @@ git tag -d [tag]
 git push origin :refs/tags/[tagName]
 ```
 
-### 提交 tag
+#### 提交 tag
 
 ```bash
 # 提交指定tag
@@ -331,7 +352,7 @@ git push [remote] --tags
 git checkout -b [branch] [tag]
 ```
 
-# 远程操作
+## 远程操作
 
 ```bash
 # 为远程仓库取一个简短的名字
@@ -372,9 +393,6 @@ git branch -a
 
 # 合并远程分支到当前分支
 git merge [remote] [branch]
-
-# 删除本地分支
-git branch -d [本地分支名称]
 
 # 删除远程分支
 git push origin --delete [远程分支名称]

@@ -725,6 +725,11 @@ document.createElement('标签名')
 父元素.removeChild(要删除的元素)
 ```
 
+**清空表单**
+```js
+document.createElement('form').reset()
+```
+
 #### 样式/属性
 
 **修改样式属性/类名**
@@ -864,6 +869,199 @@ clearTimerout(变量名)
 ### Swiper插件
 各种轮播图，[中文官网](https://www.swiper.com.cn/index.html)
 
+### Ajax
+
+#### XMLHttpRequest
+
+**GET请求**
+```js
+// 1. 创建 XHR 对象
+let xhr = new XMLHttpRequest()
+// 2. 调用 open 函数
+xhr.open('GET', 'http://www.liulongbin.top:3006/api/getbooks')
+// 3. 调用 send 函数
+xhr.send()
+// 4. 监听 onreadystatechange 事件
+xhr.onreadystatechange = function () {
+  if (xhr.readyState === 4 && xhr.status === 200) {
+    // 获取服务器响应的数据
+    console.log(xhr.responseText)
+  }
+}
+```
+
+**JSONP**
+通过script标签的src属性实现跨域请求，仅支持GET
+```js
+<script>
+  function abc(data) {
+    console.log('JSONP响应回来的数据是：')
+    console.log(data)
+  }
+</script>
+
+<script src="http://ajax.frontend.itheima.net:3006/api/jsonp?callback=abc&name=ls&age=30"></script>
+```
+
+**POST请求**
+```js
+// 1. 创建 xhr 对象
+let xhr = new XMLHttpRequest()
+// 2. 调用 open 函数
+xhr.open('POST', 'http://www.liulongbin.top:3006/api/addbook')
+// 3. 设置 Content-Type 属性
+xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded')
+// 4. 调用 send 函数
+xhr.send('bookname=水浒传&author=施耐庵&publisher=上海图书出版社')
+// 5. 监听事件
+xhr.onreadystatechange = function () {
+  if (xhr.readyState === 4 && xhr.status === 200) {
+    console.log(xhr.responseText)
+  }
+}
+```
+
+**readyState属性**
+- `0` **UNSENT**(XMLHttpRequest 对象已被创建，但尚未调用 open方法)
+- `1` **OPENED**(open()方法已经被调用)
+- `2` **HEADERS_RECEIVED**(send()方法已经被调用，响应头也已经被接收)
+- `3` **LOADING**(数据接收中，此时 response 属性中已经包含部分数据)
+- `4` **DONE** Ajax 请求完成，这意味着数据传输已经彻底完成或失败
+
+#### XMLHttpRequest 2
+**设置超时时间**
+```js
+let xhr = new XMLHttpRequest()
+
+// 设置 超时时间
+xhr.timeout = 30
+// 设置超时以后的处理函数
+xhr.ontimeout = function () {
+  console.log('请求超时了！')
+}
+
+xhr.open('GET', 'http://www.liulongbin.top:3006/api/getbooks')
+xhr.send()
+
+xhr.onreadystatechange = function () {
+  if (xhr.readyState === 4 && xhr.status === 200) {
+    console.log(xhr.responseText)
+  }
+}
+```
+
+**FormData() 请求体(只存在于POST请求)**
+```js
+// 1. 创建 FormData 实例
+var fd = new FormData()
+// 2. 调用 append 函数，向 fd 中追加数据
+fd.append('uname', 'zs')
+fd.append('upwd', '123456')
+
+var xhr = new XMLHttpRequest()
+xhr.open('POST', 'http://www.liulongbin.top:3006/api/formdata')
+xhr.send(fd)
+
+xhr.onreadystatechange = function () {
+  if (xhr.readyState === 4 && xhr.status === 200) {
+    console.log(JSON.parse(xhr.responseText))
+  }
+}
+```
+**通过FormData()快速获取表单数据**
+```js
+// 1. 通过 DOM 操作，获取到 form 表单元素
+var form = document.querySelector('#form1')
+
+form.addEventListener('submit', function (e) {
+  // 阻止表单的默认提交行为
+  e.preventDefault()
+
+  // 创建 FormData，快速获取到 form 表单中的数据
+  var fd = new FormData(form)
+
+  var xhr = new XMLHttpRequest()
+  xhr.open('POST', 'http://www.liulongbin.top:3006/api/formdata')
+  xhr.send(fd)
+
+  xhr.onreadystatechange = function () {
+    if (xhr.readyState === 4 && xhr.status === 200) {
+      console.log(JSON.parse(xhr.responseText))
+    }
+  }
+})
+```
+
+**上传文件**
+```html
+<!-- 1. 文件选择框 -->
+<input type="file" id="file1" />
+<!-- 2. 上传文件的按钮 -->
+<button id="btnUpload">上传文件</button>
+<br />
+<!-- 3. img 标签，来显示上传成功以后的图片 -->
+<img src="" alt="" id="img" width="800" />
+
+<script>
+  // 1. 获取到文件上传按钮
+  var btnUpload = document.querySelector('#btnUpload')
+  // 2. 为按钮绑定单击事件处理函数
+  btnUpload.addEventListener('click', function () {
+    // 3. 获取到用户选择的文件列表
+    var files = document.querySelector('#file1').files
+    if (files.length <= 0) {
+      return alert('请选择要上传的文件！')
+    }
+    var fd = new FormData()
+    // 将用户选择的文件，添加到 FormData 中
+    fd.append('avatar', files[0])
+
+    var xhr = new XMLHttpRequest()
+    xhr.open('POST', 'http://www.liulongbin.top:3006/api/upload/avatar')
+    xhr.send(fd)
+
+    xhr.onreadystatechange = function () {
+      if (xhr.readyState === 4 && xhr.status === 200) {
+        var data = JSON.parse(xhr.responseText)
+        if (data.status === 200) {
+          // 上传成功
+          document.querySelector('#img').src = 'http://www.liulongbin.top:3006' + data.url
+        } else {
+          // 上传失败
+          console.log('图片上传失败！' + data.message)
+        }
+      }
+    }
+  })
+```
+
+#### axios
+专注于网络数据请求的库
+**GET请求**
+```js
+axios.get('url', { params: { /*参数*/ } }).then(callback)
+```
+**POST请求**
+```js
+axios.post('url', { /*参数*/ }).then(callback)
+```
+**通用写法**
+```js
+axios({
+    method: '请求类型',
+    url: '请求的URL地址',
+    data: { /* POST数据 */ },
+    params: { /* GET参数 */ }
+}) .then(callback)
+```
+#### URL编码
+```js
+encodeURI('张三')
+// 输出字符串 %E5%BC%A0%E4%B8%89
+decodeURI('%E5%BC%A0%E4%B8%89')
+// 输出字符串  张三
+```
+
 ### 本地存储
 
 #### localStorage
@@ -883,8 +1081,8 @@ localStorage.getItem('name') /* 读取 */
 
 // 复杂数据类型
 let obj = { name: '张三', age: 18 }
-localStorage.setItem('obj', JSON.stringify(obj))  /* 存储(转化为JSON字符串) */
-JSON.parse(localStorage.getItem('obj'))  /* 读取(将JSON字符串转化为对象) */
+localStorage.setItem('obj', JSON.stringify(obj))  /* 存储(转化为JSON字符串，序列化) */
+JSON.parse(localStorage.getItem('obj'))  /* 读取(将JSON字符串转化为对象，反序列化) */
 ```
 
 #### sessionStorage
