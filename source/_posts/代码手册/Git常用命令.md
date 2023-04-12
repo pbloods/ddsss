@@ -58,17 +58,17 @@ git config --global --edit
 **设置代理**
 给 git 设置 SOCKS5 代理：
 使用 https 的时候，就是使用 https 协议复制仓库的时候,如: https://github.com/KyleBing/T...
-端口号根据自己的代理端口进行修改，一般 ss 是1080，v2ray 是 1081，clash 是 7891
+端口号根据自己的代理端口进行修改，一般 ss 是1080，v2ray 是 1081，clash 是 7890
 ```shell
-git config --global http.proxy 'http://127.0.0.3:7890'
-git config --global https.proxy 'https://127.0.0.2:7890'
+git config --global http.proxy 'http://127.0.0.1:7890'
+git config --global https.proxy 'https://127.0.0.1:7890'
 ```
 也可以直接修改用户主目录下的`.gitconfig`文件
 ```
 [http]
-        proxy = http://127.0.0.3:7890
+        proxy = http://127.0.0.1:7890
 [https]
-        proxy = https://127.0.0.2:7890
+        proxy = https://127.0.0.1:7890
 ```
 
 **.gitignore**
