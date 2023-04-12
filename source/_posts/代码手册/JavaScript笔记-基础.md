@@ -5,6 +5,7 @@ categories:
 tags:
   - JavaScript
 top_img: false
+abbrlink: 744355708
 date: 2022-08-28 14:27:01
 ---
 
@@ -22,6 +23,12 @@ date: 2022-08-28 14:27:01
 ### JS执行机制
 JS是一门单线程语言，通过异步和同步可以实现类似多线程操作。
 **同步任务**都在主线程上执行，形成一个**执行栈**；异步通过回调函数实现，**异步任务**会添加到任务队列(消息队列)，等待同步任务都执行完毕后任务队列中的任务按照**异步API**规定的顺序进入执行栈执行，首个异步任务执行完后会回到任务队列查询剩余异步任务，如存在则再次进入执行栈执行，循环往复(**事件循环**)，直到任务全部执行完毕
+
+### Promise()
+new 出来的实例对象代表一个异步操作
+```js
+const p = new Promise()
+```
 
 ### 模板字符串
 ```js
@@ -391,6 +398,9 @@ console.log(elements.join('')); // expected output: "FireAirWater"
 
 console.log(elements.join('-')); // expected output: "Fire-Air-Water"
 ```
+
+**翻转**
+`reverse()`
 
 **伪数组转为真数组**
 t通过内置结构函数 Array 的 `from()`

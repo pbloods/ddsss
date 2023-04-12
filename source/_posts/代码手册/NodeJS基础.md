@@ -5,19 +5,16 @@ categories:
 tags:
   - nodejs
 top_img: false
+abbrlink: 2485834034
 date: 2022-09-14 08:00:00
 ---
 
 ## 基础
 
 ### 模块化
+CommonJS规范
 ```js
-// 加载模块
-const fs = require('fs') /* 内置模块 */
-const fs = require('./xx.js') /* 自定义模块，后缀名可省略 */
-const fs = require('moment') /* 第三方模块 */
-
-// 共享成员
+// 1. 共享成员
 // 在一个自定义模块中，默认情况下， module.exports = {}
 const age = 20
 // 向 module.exports 对象上挂载 username 属性
@@ -26,6 +23,34 @@ module.exports.username = 'zs'
 module.exports.sayHello = function() {
   console.log('Hello!')
 }
+
+// 2. 导入模块
+const fs = require('fs') /* 内置模块 */
+const fs = require('./xx.js') /* 自定义模块，后缀名可省略 */
+const fs = require('moment') /* 第三方模块 */
+```
+ES6模块化规范
+```js
+// 1. 共享成员
+let n1 = 10
+let n2 = 20
+function show() {}
+// 默认导出
+export default {
+  n1,
+  show
+}
+// 按需导出
+export let s1 = 'aaa'
+export let s2 = 'ccc'
+export function say() {}
+
+// 2. 导入模块
+import m1 from './01.默认导出.js' /* 默认导入 */
+import './01.默认导出.js' /* 直接导入代码 */
+import { s1, s2, say } from './01.默认导出.js' /* 按需导入 */
+import m1, { s1, s2, say } from './01.默认导出.js'
+import { s1, s2 as str2, say } from './01.默认导出.js' /* as关键字重命名 */
 ```
 
 ## 内置模块

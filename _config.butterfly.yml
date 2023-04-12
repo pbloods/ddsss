@@ -8,6 +8,7 @@ menu:
   工具||fas fa-tools||hide:
     导航: https://nav.pblood.com/ || fa-solid fa-location-arrow
     云盘: https://pan.pblood.com/ || fas fa-cloud
+    GhatGPT: https://chatgpt.pblood.com/ || fas fa-robot
   友链: /link/ || fas fa-link
   关于: /about/ || fas fa-heart animated faa-pulse
 
